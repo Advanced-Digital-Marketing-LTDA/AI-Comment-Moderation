@@ -45,16 +45,16 @@ These P01-P06 names identify test invariants. They are a separate namespace from
 
 ## P04: YouTube-only product routing
 
-| Required field                          | Actual target contract                                                                                                                                 |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Contract and boundaries                 | Social/CMS/API category sequences keep moderaty=false; unknown/inherited categories reject. YouTube alone may expose documented related-product route. |
-| Independent oracle                      | Explicit YouTube-only compatibility and category choices in specification.                                                                             |
-| Input strategy and reset                | Arrays of social/cms/api, lengths1-30; pure independent function calls; cloned return behavior verified by deterministic tests.                        |
-| Observed output/state/forbidden effects | workflowFor() false for each non-YouTube operation; unknown/inherited keys throw.                                                                      |
-| Concrete detectable fault               | Default product recommendation for any category or allow prototype-chain workflow keys.                                                                |
-| Deterministic regression                | toString/**proto**/constructor regressions and browser category choices.                                                                               |
-| Actual evidence/replay                  | Final local property and 4/4 DOM checks passed; baseline Chromium evidence remains historical; alignment browser run pending.                          |
-| Limitations                             | No provider account/API/platform moderation permission or exact third-party integration is tested.                                                     |
+| Required field                          | Actual target contract                                                                                                                                                         |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Contract and boundaries                 | Social/CMS/API category sequences keep moderaty=false; unknown/inherited categories reject. YouTube alone may expose documented related-product route.                         |
+| Independent oracle                      | Explicit YouTube-only compatibility and category choices in specification.                                                                                                     |
+| Input strategy and reset                | Arrays of social/cms/api, lengths1-30; pure independent function calls; cloned return behavior verified by deterministic tests.                                                |
+| Observed output/state/forbidden effects | workflowFor() false for each non-YouTube operation; unknown/inherited keys throw.                                                                                              |
+| Concrete detectable fault               | Default product recommendation for any category or allow prototype-chain workflow keys.                                                                                        |
+| Deterministic regression                | toString/**proto**/constructor regressions and browser category choices.                                                                                                       |
+| Actual evidence/replay                  | Final local property and 4/4 DOM checks passed; baseline Chromium evidence remains historical; alignment browser run passed locally on merged main 92c9ae1 on 11 October 2026. |
+| Limitations                             | No provider account/API/platform moderation permission or exact third-party integration is tested.                                                                             |
 
 ## P05: Static hosting and artifact CSP
 
