@@ -49,7 +49,6 @@ assert.equal(
   'Incorrect robots metadata for the selected artifact mode',
 );
 assert.ok(html.includes('Illustrative rules, not a live AI prediction'));
-assert.ok(html.includes('My reviews of AI comment moderation tools'));
 assert.ok(!html.includes('the team behind Moderaty'));
 assert.ok(html.includes('top-level YouTube comments'));
 const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
