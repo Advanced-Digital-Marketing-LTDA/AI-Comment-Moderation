@@ -46,19 +46,13 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
-      - name: Check out the plugin marketplace at a pinned commit
-        if: env.CLAUDE_CODE_OAUTH_TOKEN != ''
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          repository: anthropics/claude-code
-          ref: 94506ff0d3bd9185f1752da36e968775021fb48f
-          path: .marketplace/claude-code
-          persist-credentials: false
       - uses: anthropics/claude-code-action@a26b07d8c778b0c43f64618e5fd29fd0f8af72e8 # v1
         if: env.CLAUDE_CODE_OAUTH_TOKEN != ''
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          plugin_marketplaces: ./.marketplace/claude-code
+          # The claude-code-plugins name is reserved for GitHub sources from the anthropics org,
+          # so a local checkout is rejected; this loads the repository's default branch, not a pinned commit.
+          plugin_marketplaces: https://github.com/anthropics/claude-code.git
           plugins: pr-review-toolkit@claude-code-plugins
           # Without this the action's App token gets contents/issues write.
           additional_permissions: |
