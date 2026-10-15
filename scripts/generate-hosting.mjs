@@ -47,7 +47,11 @@ async function collect(dir) {
 }
 await collect('dist/client');
 const marker = buildMarker(publicFiles, process.env);
-const indexable = ['/', '/index.html', ...reviewPaths.flatMap((path) => [path, `${path}/`])];
+const indexable = [
+  '/',
+  '/index.html',
+  ...reviewPaths.flatMap((path) => [path, `${path}/`, `${path}/index.html`]),
+];
 const routes = [...indexable, '/404', '/404/', '/404.html'];
 await writeFile(
   'dist/_headers.json',

@@ -30,6 +30,19 @@ export default defineConfig({
             manifest.assets = manifest.assets.filter((path) => path !== alias);
             route.routeData.pattern = `^(?:${original === '/' ? '/' : '/404/?'}|${alias.replaceAll('.', '\\.')})$`;
           }
+          // The review pages are directory-format files too: give their /index.html
+          // aliases the same header-bearing routes as the guide.
+          for (const [original, pattern] of [
+            ['/reviews', '^\\/reviews(?:\\/(?:index\\.html)?)?$'],
+            ['/reviews/[slug]', '^\\/reviews\\/([^/]+?)(?:\\/(?:index\\.html)?)?$'],
+          ]) {
+            const route = manifest.routes.find(({ routeData }) => routeData.route === original);
+            if (!route) throw new Error(`Missing prerendered route: ${original}`);
+            route.routeData.pattern = pattern;
+          }
+          manifest.assets = manifest.assets.filter(
+            (path) => !/^\/reviews(?:\/[^/]+)?\/index\.html$/.test(path),
+          );
         },
       },
     },
