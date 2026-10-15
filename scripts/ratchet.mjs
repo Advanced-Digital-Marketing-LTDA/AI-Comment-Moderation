@@ -14,7 +14,7 @@ export const ratchets = {
   test: {
     direction: 'floor',
     patterns: {
-      tests: /^\s*(?:test|it)(?:\.\w+)?\(/gm,
+      tests: /^[ \t]*(?:test|it)(?:\.\w+)?\(/gm,
       assertions: /\bassert(?:\.\w+)?\(|\bexpect\(/g,
     },
     files: (path) => path.startsWith('tests/'),
@@ -32,7 +32,10 @@ export const ratchets = {
   },
   type: {
     direction: 'ceiling',
-    patterns: { anyType: /(?::|\bas|<)\s*any\b/g, doubleCast: /\bas\s+unknown\s+as\b/g },
+    patterns: {
+      anyType: /(?:[:=,<]|\bas)\s*any\b(?!\s+\w)/g,
+      doubleCast: /\bas\s+unknown\s+as\b/g,
+    },
     files: (path) => /\.(?:ts|astro)$/.test(path),
   },
 };

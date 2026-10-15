@@ -7,6 +7,15 @@ test('countMatches counts each named pattern', () => {
   assert.equal(counts.tsSuppress, 2);
   assert.equal(counts.lintDisable, 0);
 });
+test('the type ratchet counts any in annotations, aliases and later generic arguments', () => {
+  const source =
+    'let a: any;\ntype Alias = any;\nconst m: Map<string, any> = x as any;\n// any thing';
+  assert.equal(countMatches(source, ratchets.type.patterns).anyType, 4);
+});
+test('the test ratchet does not count blank lines as indentation', () => {
+  const counts = countMatches("\n\n\n  test('a', () => {});", ratchets.test.patterns);
+  assert.equal(counts.tests, 1);
+});
 test('a floor ratchet fails when a count drops and passes when it holds or grows', () => {
   assert.deepEqual(regressions('floor', { tests: 5 }, { tests: 5 }), []);
   assert.deepEqual(regressions('floor', { tests: 5 }, { tests: 6 }), []);
