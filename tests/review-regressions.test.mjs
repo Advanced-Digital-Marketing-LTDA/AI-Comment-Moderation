@@ -48,7 +48,7 @@ function guide(examples) {
   const options = scenarios
     .map((scenario) => `<option value="${scenario.id}">${escape(scenario.label)}</option>`)
     .join('');
-  return `<html><head><title>AI Comment Moderation: Workflows, Examples and Review Choices</title><link rel="canonical" href="https://aicommentmoderation.com/"><meta name="robots" content="noindex,follow"></head><body><h1>Choose an AI comment moderation workflow</h1><div class="hero-visual" role="group"></div><span id="checklist-count" hidden></span><button id="reset-checklist" hidden></button><p>Illustrative rules, not a live AI prediction; the team behind Moderaty; top-level YouTube comments</p>${sections}<select>${options}</select><details class="all-examples"><div class="static-example-grid">${examples}</div></details></body></html>`;
+  return `<html><head><title>AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices</title><link rel="canonical" href="https://aicommentmoderation.com/"><meta name="robots" content="noindex,follow"></head><body><h1>My reviews of AI comment moderation tools</h1><div class="hero-visual" role="group"></div><span id="checklist-count" hidden></span><button id="reset-checklist" hidden></button><p>Illustrative rules, not a live AI prediction; My reviews of AI comment moderation tools; top-level YouTube comments</p>${sections}<select>${options}</select><details class="all-examples"><div class="static-example-grid">${examples}</div></details></body></html>`;
 }
 async function checkOutput(html, release = false) {
   const dir = await mkdtemp(join(tmpdir(), 'aicm-output-review-'));

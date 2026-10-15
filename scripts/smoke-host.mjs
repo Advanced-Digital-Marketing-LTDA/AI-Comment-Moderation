@@ -21,7 +21,7 @@ async function get(path) {
 const root = await get('/');
 assert.equal(root.status, 200);
 const html = await root.text();
-assert.ok(html.includes('Choose an AI comment moderation workflow'));
+assert.ok(html.includes('My reviews of AI comment moderation tools'));
 assert.ok(html.includes('noindex,follow'), 'Use a preview build for this smoke test');
 const csp = root.headers.get('content-security-policy');
 assert.ok(csp?.includes("connect-src 'none'"));
