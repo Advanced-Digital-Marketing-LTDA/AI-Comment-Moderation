@@ -1,0 +1,17 @@
+{
+  "test": {
+    "tests": 95,
+    "assertions": 363
+  },
+  "suppress": {
+    "lintDisable": 0,
+    "tsSuppress": 0,
+    "prettierIgnore": 1,
+    "skippedTests": 0,
+    "focusedTests": 0
+  },
+  "type": {
+    "anyType": 0,
+    "doubleCast": 0
+  }
+}
