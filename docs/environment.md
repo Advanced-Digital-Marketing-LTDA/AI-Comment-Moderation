@@ -23,7 +23,7 @@ The local Dockerfile now pins the versioned images to the exact immutable digest
 
 ANALYTICS_ENABLED, UMAMI_URL, UMAMI_WEBSITE_ID, ANALYTICS_ALLOWED_HOSTNAMES and DRY_RUN are upstream examples for unselected features. They are omitted. No CMS/contact/email/OAuth/model/server credential names or secret injection path is needed. Adding such a capability activates its own requirements first.
 
-One CI-only exception: the optional `ANTHROPIC_API_KEY` GitHub repository secret, owned by the repository owner, is read only by the `ai-review` job in `.github/workflows/review-tooling.yml`. That job sends pull-request source to an external model provider and skips with a warning when the secret is unset. The secret is never a build or runtime value, and the site, container and Node server do not use it.
+One CI-only exception: the optional `CLAUDE_CODE_OAUTH_TOKEN` GitHub repository secret, owned by the repository owner, is read only by the `ai-review` job in `.github/workflows/review-tooling.yml`. That job sends pull-request source to an external model provider and skips with a warning when the secret is unset. The secret is never a build or runtime value, and the site, container and Node server do not use it.
 
 Unit/property tests reject localhost, www, previews, lookalikes, old/canceled domains, explicit ports, credentials, non-HTTPS and URL query/path/hash. Built-output/browser checks inspect inherited IDs, network and storage. Marker tests permit only the safe public commit field. Actual production log retention, trusted proxy and operator identity remain pending; no secret sentinel or provider setup has been invented.
 
