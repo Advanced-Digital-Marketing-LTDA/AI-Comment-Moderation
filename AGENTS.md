@@ -30,7 +30,6 @@ Default builds are noindex previews. SITE_RELEASE=true prepares an indexable art
 
 Report changed behavior, exact commands/results, current local source identity and pending operator/release checks. PRs #1–3 are merged on main; PR #1's reviewed head 702b290 passed automated source/browser/container checks, and the full documented local chain including the 10-test browser suite passed on merged main 92c9ae1 on 11 October 2026. Manual accessibility/visual review, owner license/legal/contact decisions and actual Coolify/proxy/TLS/DNS/release/recovery evidence remain pending. Local green, a source push or health 200 cannot establish a public release.
 
-
 ## Global Rules
 
 ### Scope discipline
