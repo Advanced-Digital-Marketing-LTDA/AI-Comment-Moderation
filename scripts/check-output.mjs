@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { allowedExternalUrl, siteConfig } from '../src/lib/site-config.mjs';
 import { scenarios } from '../src/data/scenarios.mjs';
+import { reviews } from '../src/data/reviews.mjs';
 import { JSDOM } from 'jsdom';
 const config = siteConfig(process.env);
 const html = await readFile('dist/client/index.html', 'utf8');
@@ -139,8 +141,33 @@ assert.ok(robots.includes('Sitemap: https://aicommentmoderation.com/sitemap.xml'
 assert.ok(robots.includes('Allow: /'));
 assert.ok(!robots.includes('Disallow'));
 const sitemap = await readFile('dist/client/sitemap.xml', 'utf8');
-assert.equal((sitemap.match(/<loc>/g) ?? []).length, 1);
+const hasReviews = existsSync('dist/client/reviews');
+assert.equal((sitemap.match(/<loc>/g) ?? []).length, hasReviews ? 2 + reviews.length : 1);
 assert.ok(sitemap.includes('<loc>https://aicommentmoderation.com/</loc>'));
+const reviewDocuments = hasReviews ? [['reviews', '/reviews/']] : [];
+assert.equal(sitemap.includes('<loc>https://aicommentmoderation.com/reviews/</loc>'), hasReviews);
+for (const review of hasReviews ? reviews : []) {
+  assert.ok(sitemap.includes(`<loc>https://aicommentmoderation.com/reviews/${review.slug}/</loc>`));
+  reviewDocuments.push([`reviews/${review.slug}`, `/reviews/${review.slug}/`]);
+}
+for (const [dir, path] of reviewDocuments) {
+  const reviewHtml = await readFile(`dist/client/${dir}/index.html`, 'utf8');
+  const reviewDom = new JSDOM(reviewHtml);
+  const reviewDocument = reviewDom.window.document;
+  assert.equal(reviewDocument.querySelectorAll('h1').length, 1, `${dir}: one h1`);
+  assert.ok(
+    reviewHtml.includes(`rel="canonical" href="https://aicommentmoderation.com${path}"`),
+    `${dir}: canonical`,
+  );
+  assert.equal(
+    reviewDocument.querySelector('meta[name="robots"]')?.getAttribute('content'),
+    config.release ? 'index,follow' : 'noindex,follow',
+    `${dir}: robots`,
+  );
+  assert.ok(!reviewHtml.includes('the team behind Moderaty'), `${dir}: owner wording`);
+  await checkDestinations(reviewDocument, `${dir}/index.html`);
+  reviewDom.window.close();
+}
 const files = [];
 async function walk(dir) {
   for (const item of await readdir(dir, { withFileTypes: true })) {

@@ -5,14 +5,21 @@ interface Props {
   title: string;
   description: string;
   error?: boolean;
+  path?: string;
 }
-const { title, description, error = false } = Astro.props;
+const { title, description, error = false, path = '/' } = Astro.props;
 const config = siteConfig(process.env);
-const url = canonical('/');
+const siteUrl = canonical('/');
+const url = canonical(path);
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'WebSite', '@id': `${url}#website`, name: 'AI Comment Moderation', url },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}#website`,
+      name: 'AI Comment Moderation',
+      url: siteUrl,
+    },
     {
       '@type': 'WebPage',
       '@id': `${url}#webpage`,
@@ -20,7 +27,7 @@ const schema = {
       description,
       url,
       inLanguage: 'en',
-      isPartOf: { '@id': `${url}#website` },
+      isPartOf: { '@id': `${siteUrl}#website` },
     },
   ],
 };
@@ -87,6 +94,7 @@ const schema = {
           <a href="/#choose-a-workflow">Workflows</a>
           <a href="/#native-settings">YouTube options</a>
           <a href="/#questions">Questions</a>
+          <a href="/reviews/">Tool reviews</a>
         </nav>
       </div>
     </header>

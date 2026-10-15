@@ -9,6 +9,13 @@ export const EXTERNAL_HOSTS = new Set([
   'www.komento.ai',
   'moderationapi.com',
   'www.drupal.org',
+  'reviewnexa.com',
+  'www.spikerz.com',
+  'replient.ai',
+  'respondology.com',
+  'beyondcomments.io',
+  'napoleoncat.com',
+  'meetalto.ai',
 ]);
 
 /** @param {{ SITE_URL?: string, SITE_RELEASE?: string }} env */

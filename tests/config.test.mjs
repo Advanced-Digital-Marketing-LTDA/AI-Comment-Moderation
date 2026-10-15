@@ -111,6 +111,13 @@ test('every approved editorial destination remains available through its exact H
     'www.komento.ai',
     'moderationapi.com',
     'www.drupal.org',
+    'reviewnexa.com',
+    'www.spikerz.com',
+    'replient.ai',
+    'respondology.com',
+    'beyondcomments.io',
+    'napoleoncat.com',
+    'meetalto.ai',
   ]) {
     assert.equal(allowedExternalUrl(`https://${host}/guide?q=reference#source`), true, host);
     assert.equal(allowedExternalUrl(`https://${host}.evil.invalid/`), false, host);
