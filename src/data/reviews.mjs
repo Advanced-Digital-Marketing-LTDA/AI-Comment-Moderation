@@ -1,8 +1,8 @@
 export const reviewedOn = '15 October 2026';
 
 export const reviewMethod = [
-  'I read each vendor’s own pages and recent independent write-ups. I did not run any of these tools on a real channel.',
-  'I only use sources published or updated in the last six months, and I name the source and date next to each claim that depends on one.',
+  'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario and Bodyguard.ai my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
+  'I only use sources published or updated in the last six months. Each page lists its sources with their dates after the review.',
   'Accuracy figures are the reviewers’ own tests or vendor claims. I treat them as unverified.',
   'Prices change. Check the vendor’s page before you decide.',
 ];
