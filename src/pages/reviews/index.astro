@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { reviews, reviewedOn, reviewMethod } from '../../data/reviews.mjs';
+---
+
+<BaseLayout
+  title="AI YouTube Comment Moderation Tool Reviews: 9 Tools Compared"
+  description={`My source-based reviews of nine AI comment moderation tools that work with YouTube: what each does, what it costs and where it stops. Checked ${reviewedOn}.`}
+  path="/reviews/"
+>
+  <section class="section container" id="reviews">
+    <p class="eyebrow">Tool reviews</p>
+    <h1>My reviews of AI YouTube comment moderation tools</h1>
+    <p class="hero-intro">
+      Nine tools that handle YouTube comments, each with what it does, what it costs and where it
+      stops. Checked {reviewedOn}.
+    </p>
+    <p class="small quiet">
+      These are source-based reviews. I read vendor pages and recent write-ups. I did not run the
+      tools on a real channel.
+    </p>
+  </section>
+
+  <section class="section container" id="tool-list">
+    <h2>The nine tools</h2>
+    <div class="other-grid">
+      {reviews.map((review) => (
+        <article class="scenario-card">
+          <h3>
+            <a href={`/reviews/${review.slug}/`}>{review.name}</a>
+          </h3>
+          <p>{review.tagline}</p>
+          <p class="small">
+            <strong>Pricing:</strong> {review.pricing}
+          </p>
+          <a class="text-link" href={`/reviews/${review.slug}/`}>
+            Read the {review.name} review <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-tinted" id="how-i-review">
+    <div class="container">
+      <h2>How I review</h2>
+      <ul>
+        {reviewMethod.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

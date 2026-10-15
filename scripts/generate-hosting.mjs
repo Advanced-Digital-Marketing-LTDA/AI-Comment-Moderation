@@ -1,12 +1,21 @@
+import { existsSync } from 'node:fs';
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import { join, relative } from 'node:path';
 import { securityHeaders } from '../src/lib/hosting-headers.mjs';
 import { buildMarker } from '../src/lib/build-provenance.mjs';
+import { reviews } from '../src/data/reviews.mjs';
 let html = await readFile('dist/client/index.html', 'utf8');
 let errorHtml = await readFile('dist/client/404.html', 'utf8');
 if (!html.includes('My reviews of AI comment moderation tools'))
   throw new Error('Cannot prepare hosting without the expected built guide');
-const headers = securityHeaders(html + '\n' + errorHtml);
+// A build without the reviews directory is rejected later by check-output's sitemap count.
+const reviewPaths = existsSync('dist/client/reviews')
+  ? ['/reviews', ...reviews.map((review) => `/reviews/${review.slug}`)]
+  : [];
+const reviewPages = await Promise.all(
+  reviewPaths.map((path) => readFile(`dist/client${path}/index.html`, 'utf8')),
+);
+const headers = securityHeaders([html, errorHtml, ...reviewPages].join('\n'));
 // Keep the script policy in the HTML as well as the native header registry;
 // frame-ancestors requires an HTTP header and is omitted from the meta policy.
 const policy = headers['Content-Security-Policy'].replace("; frame-ancestors 'none'", '');
@@ -17,6 +26,12 @@ html = html.replace('</head>', `${meta}</head>`);
 errorHtml = errorHtml.replace('</head>', `${meta}</head>`);
 await writeFile('dist/client/index.html', html);
 await writeFile('dist/client/404.html', errorHtml);
+for (const [index, path] of reviewPaths.entries()) {
+  const file = `dist/client${path}/index.html`;
+  if (!reviewPages[index].includes('</head>'))
+    throw new Error(`Cannot add CSP metadata to ${file}`);
+  await writeFile(file, reviewPages[index].replace('</head>', `${meta}</head>`));
+}
 const publicFiles = [];
 async function collect(dir) {
   for (const item of await readdir(dir, { withFileTypes: true })) {
@@ -32,7 +47,12 @@ async function collect(dir) {
 }
 await collect('dist/client');
 const marker = buildMarker(publicFiles, process.env);
-const routes = ['/', '/index.html', '/404', '/404/', '/404.html'];
+const indexable = [
+  '/',
+  '/index.html',
+  ...reviewPaths.flatMap((path) => [path, `${path}/`, `${path}/index.html`]),
+];
+const routes = [...indexable, '/404', '/404/', '/404.html'];
 await writeFile(
   'dist/_headers.json',
   JSON.stringify(
@@ -40,8 +60,8 @@ await writeFile(
       pathname,
       headers: Object.entries({
         ...headers,
-        'Cache-Control': ['/', '/index.html'].includes(pathname) ? 'no-cache' : 'no-store',
-        ...(!['/', '/index.html'].includes(pathname) ? { 'X-Robots-Tag': 'noindex, follow' } : {}),
+        'Cache-Control': indexable.includes(pathname) ? 'no-cache' : 'no-store',
+        ...(!indexable.includes(pathname) ? { 'X-Robots-Tag': 'noindex, follow' } : {}),
       }).map(([key, value]) => ({ key, value })),
     })),
     null,

@@ -29,6 +29,8 @@ for (const match of [
   );
 }
 html = html.replaceAll('href="/#', 'href="#').replaceAll('href="/"', 'href="#main"');
+// The review pages are not packaged in this single file, so their link points at the published page.
+html = html.replaceAll('href="/reviews/"', 'href="https://aicommentmoderation.com/reviews/"');
 const icon = await readFile('public/favicon.svg');
 html = html.replace(
   'href="/favicon.svg"',
