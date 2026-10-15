@@ -29,3 +29,13 @@ Default builds are noindex previews. SITE_RELEASE=true prepares an indexable art
 ## Handoff
 
 Report changed behavior, exact commands/results, current local source identity and pending operator/release checks. PRs #1–3 are merged on main; PR #1's reviewed head 702b290 passed automated source/browser/container checks, and the full documented local chain including the 10-test browser suite passed on merged main 92c9ae1 on 11 October 2026. Manual accessibility/visual review, owner license/legal/contact decisions and actual Coolify/proxy/TLS/DNS/release/recovery evidence remain pending. Local green, a source push or health 200 cannot establish a public release.
+
+## Global Rules
+
+### Scope discipline
+
+Change only what I explicitly ask you to change. Never remove, restyle, or "clean up" anything else (design, images, animations, layout, code, settings). If I ask for a text rewrite, touch text only. Standard development steps the repo requires (tests, evidence, checks) are expected; this rule means never changing or removing existing work based on assumptions about what I meant.
+
+### Confirm first
+
+For any task that modifies something (files, sites, code, settings), first list exactly what you will change and what you will leave untouched, then wait for my approval before doing it.
