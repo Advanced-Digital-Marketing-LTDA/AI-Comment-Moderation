@@ -14,9 +14,18 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
           node-version-file: .node-version
-      - run: node scripts/ratchet.mjs test
-      - run: node scripts/ratchet.mjs suppress
-      - run: node scripts/ratchet.mjs type
+      - name: Fetch the base branch baseline
+        # A PR can edit its own baseline file, so compare against the base branch's copy.
+        # The first PR, before the base has one, falls back to its own file.
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch --depth=1 origin "$BASE_SHA"
+          git show "$BASE_SHA:.github/ratchet/baseline.json" > "$RUNNER_TEMP/baseline.json" \
+            || cp .github/ratchet/baseline.json "$RUNNER_TEMP/baseline.json"
+      - run: node scripts/ratchet.mjs test --baseline "$RUNNER_TEMP/baseline.json"
+      - run: node scripts/ratchet.mjs suppress --baseline "$RUNNER_TEMP/baseline.json"
+      - run: node scripts/ratchet.mjs type --baseline "$RUNNER_TEMP/baseline.json"
   ai-review:
     # Paid. Needs the ANTHROPIC_API_KEY repository secret; skipped without it and on forks.
     if: github.event.pull_request.head.repo.full_name == github.repository

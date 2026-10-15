@@ -25,15 +25,16 @@ export const ratchets = {
       lintDisable: /eslint-disable/g,
       tsSuppress: /@ts-(?:ignore|expect-error|nocheck)/g,
       prettierIgnore: /prettier-ignore/g,
-      skippedTests: /\b(?:test|it|describe)\.(?:skip|todo)\(/g,
-      focusedTests: /\b(?:test|it|describe)\.only\(/g,
+      skippedTests:
+        /\b(?:test|it|describe)\.(?:skip|todo|fixme)\(|\b(?:skip|todo)\s*:\s*(?!false\b)\S/g,
+      focusedTests: /\b(?:test|it|describe)\.only\(|\bonly\s*:\s*true\b/g,
     },
     files: () => true,
   },
   type: {
     direction: 'ceiling',
     patterns: {
-      anyType: /(?:[:=,<]|\bas)\s*any\b(?!\s+\w)/g,
+      anyType: /(?:[:=,<|&]|\bas)\s*any\b(?!\s+\w)/g,
       doubleCast: /\bas\s+unknown\s+as\b/g,
     },
     files: (path) => /\.(?:ts|astro)$/.test(path),
@@ -83,18 +84,28 @@ export async function measure(name) {
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const [name, flag] = process.argv.slice(2);
-  if (!ratchets[name] || (flag && flag !== '--update')) {
-    console.error('Usage: node scripts/ratchet.mjs <test|suppress|type> [--update]');
+  const [name, ...rest] = process.argv.slice(2);
+  const update = rest.includes('--update');
+  const flagAt = rest.indexOf('--baseline');
+  // --baseline compares against a baseline file from the PR's base branch, which a PR cannot edit.
+  const comparePath = flagAt === -1 ? baselinePath : rest[flagAt + 1];
+  const known = rest.filter(
+    (arg, i) => arg === '--update' || arg === '--baseline' || (flagAt !== -1 && i === flagAt + 1),
+  );
+  if (!ratchets[name] || known.length !== rest.length || (flagAt !== -1 && !comparePath)) {
+    console.error(
+      'Usage: node scripts/ratchet.mjs <test|suppress|type> [--update] [--baseline <file>]',
+    );
     process.exit(2);
   }
   const current = await measure(name);
-  const stored = JSON.parse(await readFile(baselinePath, 'utf8').catch(() => '{}'));
-  if (flag === '--update') {
+  if (update) {
+    const stored = JSON.parse(await readFile(baselinePath, 'utf8').catch(() => '{}'));
     stored[name] = current;
     await writeFile(baselinePath, `${JSON.stringify(stored, null, 2)}\n`);
     console.log(`${name} ratchet baseline written:`, current);
   } else {
+    const stored = JSON.parse(await readFile(comparePath, 'utf8').catch(() => '{}'));
     const failures = regressions(ratchets[name].direction, stored[name], current);
     if (failures.length) {
       console.error(`${name} ratchet failed:\n  ${failures.join('\n  ')}`);

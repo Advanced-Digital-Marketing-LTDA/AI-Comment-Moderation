@@ -7,7 +7,7 @@
     "lintDisable": 0,
     "tsSuppress": 0,
     "prettierIgnore": 1,
-    "skippedTests": 0,
+    "skippedTests": 1,
     "focusedTests": 0
   },
   "type": {
