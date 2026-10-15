@@ -5,7 +5,7 @@ Content pages and crawler files are prerendered. The standalone Node adapter ser
 | Path                                                  | Response                                            | Indexing                                               | Cache                              |
 | ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------ | ---------------------------------- |
 | /, /?query#fragment                                   | Guide, 200; one canonical apex URL                  | Preview noindex; release indexable                     | no-cache                           |
-| /robots.txt, /sitemap.xml                             | Prerendered text/XML, 200                           | Preview disallows crawling; sitemap contains root only | Adapter defaults with revalidation |
+| /robots.txt, /sitemap.xml                             | Prerendered text/XML, 200                           | Never disallows crawling (previews stay noindex via meta/header); sitemap contains root only | Adapter defaults with revalidation |
 | /_astro/*                                             | Existing fingerprinted assets, 200                  | No sitemap entries                                     | immutable, one year                |
 | /favicon.svg, /social-card.svg, /social-card.png      | Public media, 200                                   | No sitemap entries                                     | Adapter defaults with revalidation |
 | /healthz                                              | Runtime plain text ok, 200                          | noindex                                                | no-store                           |

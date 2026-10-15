@@ -74,7 +74,7 @@ CHROMIUM_PATH is an optional executable override. The default uses Playwright's 
 
 ## Preview and release builds
 
-`npm run build` emits noindex HTML and robots.txt that disallows crawling. It still uses the intended canonical origin, https://aicommentmoderation.com/. SITE_RELEASE defaults to false. The selected public build settings are documented in [.env.example](.env.example); pass them through the process environment or Coolify build variables.
+`npm run build` emits noindex HTML; robots.txt allows crawling and lists the sitemap. It still uses the intended canonical origin, https://aicommentmoderation.com/. SITE_RELEASE defaults to false. The selected public build settings are documented in [.env.example](.env.example); pass them through the process environment or Coolify build variables.
 
 A release build requires the exact approved HTTPS origin and a lowercase 40-character source commit SHA. Start from a reviewed, clean checkout at the approved commit. This POSIX-shell command prepares indexable files and does not publish them:
 

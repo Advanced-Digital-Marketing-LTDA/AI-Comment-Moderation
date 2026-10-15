@@ -58,7 +58,7 @@ async function checkOutput(html, release = false) {
     await writeFile(join(dir, 'dist/client/404.html'), 'Page not found noindex,follow');
     await writeFile(
       join(dir, 'dist/client/robots.txt'),
-      `${release ? 'Allow' : 'Disallow'}: /\nSitemap: https://aicommentmoderation.com/sitemap.xml`,
+      `Allow: /\nSitemap: https://aicommentmoderation.com/sitemap.xml`,
     );
     await writeFile(
       join(dir, 'dist/client/sitemap.xml'),
