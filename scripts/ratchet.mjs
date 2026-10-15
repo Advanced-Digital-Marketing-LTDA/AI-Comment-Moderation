@@ -6,7 +6,10 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const baselinePath = join(root, '.github/ratchet/baseline.json');
 const scanned = ['src', 'scripts', 'tests'];
 const skippedDirs = new Set(['node_modules', 'dist', '.astro']);
-const skippedFiles = new Set(['scripts/ratchet.mjs', 'tests/ratchet.test.mjs']);
+// The script holds the patterns as text. Its test file holds fixture literals, so only the
+// test ratchet (which must see its tests, or deleting them would pass) includes it.
+const skippedFiles = new Set(['scripts/ratchet.mjs']);
+const fixtureFiles = new Set(['tests/ratchet.test.mjs']);
 const sourceFile = /\.(?:mjs|js|ts|astro)$/;
 
 // Each ratchet counts matches; direction says which way a change is a regression.
@@ -49,7 +52,8 @@ export function countMatches(source, patterns) {
 
 /** Return the regressions of `current` against `baseline` for one ratchet. */
 export function regressions(direction, baseline, current) {
-  return Object.keys(current).flatMap((name) => {
+  return [...new Set([...Object.keys(baseline ?? {}), ...Object.keys(current)])].flatMap((name) => {
+    if (!Number.isInteger(current[name])) return [`${name}: metric is no longer measured`];
     if (!Number.isInteger(baseline?.[name])) return [`${name}: no baseline recorded`];
     const bad =
       direction === 'floor' ? current[name] < baseline[name] : current[name] > baseline[name];
@@ -76,6 +80,7 @@ export async function measure(name) {
   for (const dir of scanned) {
     for await (const path of walk(dir)) {
       if (!files(relative(root, join(root, path)))) continue;
+      if (name !== 'test' && fixtureFiles.has(path)) continue;
       const counts = countMatches(await readFile(join(root, path), 'utf8'), patterns);
       for (const key of Object.keys(totals)) totals[key] += counts[key];
     }

@@ -1,7 +1,7 @@
 {
   "test": {
-    "tests": 95,
-    "assertions": 363
+    "tests": 104,
+    "assertions": 378
   },
   "suppress": {
     "lintDisable": 0,

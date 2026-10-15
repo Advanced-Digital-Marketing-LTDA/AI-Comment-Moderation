@@ -36,6 +36,9 @@ test('a ceiling ratchet fails when a count rises and passes when it holds or shr
   assert.deepEqual(regressions('ceiling', { anyType: 1 }, { anyType: 0 }), []);
   assert.match(regressions('ceiling', { anyType: 1 }, { anyType: 2 })[0], /must not go up/);
 });
+test('a metric that disappears from the measurement is a failure', () => {
+  assert.match(regressions('ceiling', { focusedTests: 0 }, {})[0], /no longer measured/);
+});
 test('a missing baseline is a failure, not a silent pass', () => {
   assert.match(regressions('ceiling', undefined, { anyType: 0 })[0], /no baseline/);
 });
