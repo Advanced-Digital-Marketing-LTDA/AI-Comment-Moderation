@@ -7,6 +7,18 @@ export const reviewMethod = [
   'Prices change. Check the vendor’s page before you decide.',
 ];
 
+const spikerzRoundup = {
+  label: 'Spikerz YouTube moderation roundup',
+  url: 'https://www.spikerz.com/blog/youtube-comment-moderation-tools',
+  date: '23 Jun 2026, updated 13 Oct 2026',
+};
+
+const replientComparison = {
+  label: 'replient.ai moderation tool comparison',
+  url: 'https://replient.ai/en/comparison/comment-moderation-tools',
+  date: 'updated 14 Oct 2026',
+};
+
 /**
  * Each review is built only from the listed sources. `sources[].date` is the
  * date shown on the source page, or "undated" when it shows none.
@@ -64,11 +76,7 @@ export const reviews = [
         url: 'https://reviewnexa.com/commentshark-review/',
         date: '16 Jul 2026',
       },
-      {
-        label: 'Spikerz YouTube moderation roundup',
-        url: 'https://www.spikerz.com/blog/youtube-comment-moderation-tools',
-        date: '23 Jun 2026, updated 13 Oct 2026',
-      },
+      spikerzRoundup,
     ],
     caveat:
       'The accuracy figures in the ReviewNexa piece (94% spam, 88% intent, 91% sentiment) come from that reviewer’s own tests. The Spikerz roundup is written by a competitor.',
@@ -93,11 +101,7 @@ export const reviews = [
         url: 'https://replient.ai/en/platform/ai-for-youtube-comments',
         date: '7 Mar 2026, updated 2 Oct 2026',
       },
-      {
-        label: 'replient.ai moderation tool comparison',
-        url: 'https://replient.ai/en/comparison/comment-moderation-tools',
-        date: 'updated 14 Oct 2026',
-      },
+      replientComparison,
     ],
     caveat: 'Both sources are the vendor’s own marketing.',
   },
@@ -111,13 +115,7 @@ export const reviews = [
     pricing: 'Custom. No public pricing.',
     bestFor: 'A team that wants to talk to sales and write rules in plain language.',
     limits: ['No public pricing, so you cannot compare cost before a sales call.'],
-    sources: [
-      {
-        label: 'Spikerz YouTube moderation roundup',
-        url: 'https://www.spikerz.com/blog/youtube-comment-moderation-tools',
-        date: '23 Jun 2026, updated 13 Oct 2026',
-      },
-    ],
+    sources: [spikerzRoundup],
     caveat: 'This is Spikerz’s own blog, which also ranks its competitors.',
   },
   {
@@ -192,18 +190,7 @@ export const reviews = [
     pricing: 'From EUR 39/mo, AI replies from EUR 178/mo, custom plans from EUR 599/mo.',
     bestFor: 'A team that wants one inbox for many channels and treats moderation as a feature.',
     limits: ['Moderation is one part of a broader suite, not the main product.'],
-    sources: [
-      {
-        label: 'replient.ai moderation tool comparison',
-        url: 'https://replient.ai/en/comparison/comment-moderation-tools',
-        date: 'updated 14 Oct 2026',
-      },
-      {
-        label: 'Spikerz YouTube moderation roundup',
-        url: 'https://www.spikerz.com/blog/youtube-comment-moderation-tools',
-        date: '23 Jun 2026, updated 13 Oct 2026',
-      },
-    ],
+    sources: [replientComparison, spikerzRoundup],
     caveat:
       'Both sources are written by competitors, and I did not check Swat.io’s own pricing page.',
   },
@@ -216,13 +203,7 @@ export const reviews = [
     pricing: 'On request.',
     bestFor: 'A large organization that wants to buy through sales.',
     limits: ['Enterprise only, with no self-serve plan.', 'No AI reply suggestions.'],
-    sources: [
-      {
-        label: 'replient.ai moderation tool comparison',
-        url: 'https://replient.ai/en/comparison/comment-moderation-tools',
-        date: 'updated 14 Oct 2026',
-      },
-    ],
+    sources: [replientComparison],
     caveat:
       'My only source is a competitor’s comparison page, so treat every detail as unconfirmed.',
   },
