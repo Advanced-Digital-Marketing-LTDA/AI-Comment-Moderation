@@ -5,10 +5,10 @@
   },
   "suppress": {
     "lintDisable": 0,
-    "tsSuppress": 0,
+    "tsSuppress": 2,
     "prettierIgnore": 1,
-    "skippedTests": 1,
-    "focusedTests": 0
+    "skippedTests": 3,
+    "focusedTests": 1
   },
   "type": {
     "anyType": 0,

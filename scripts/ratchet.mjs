@@ -6,10 +6,9 @@ const root = fileURLToPath(new URL('..', import.meta.url));
 const baselinePath = join(root, '.github/ratchet/baseline.json');
 const scanned = ['src', 'scripts', 'tests'];
 const skippedDirs = new Set(['node_modules', 'dist', '.astro']);
-// The script holds the patterns as text. Its test file holds fixture literals, so only the
-// test ratchet (which must see its tests, or deleting them would pass) includes it.
+// The script holds the patterns as text. Its test file is scanned like any other, so its fixture
+// literals are part of the recorded baselines and a newly disabled case still raises a ceiling.
 const skippedFiles = new Set(['scripts/ratchet.mjs']);
-const fixtureFiles = new Set(['tests/ratchet.test.mjs']);
 const sourceFile = /\.(?:mjs|js|ts|astro)$/;
 
 // Each ratchet counts matches; direction says which way a change is a regression.
@@ -37,7 +36,7 @@ export const ratchets = {
   type: {
     direction: 'ceiling',
     patterns: {
-      anyType: /(?:[:=,<|&]|\bas)\s*any\b(?!\s+\w)/g,
+      anyType: /(?:[:=,<>|&]|\bas)\s*any\b(?!\s+\w)/g,
       doubleCast: /\bas\s+unknown\s+as\b/g,
     },
     files: (path) => /\.(?:ts|astro)$/.test(path),
@@ -80,7 +79,6 @@ export async function measure(name) {
   for (const dir of scanned) {
     for await (const path of walk(dir)) {
       if (!files(relative(root, join(root, path)))) continue;
-      if (name !== 'test' && fixtureFiles.has(path)) continue;
       const counts = countMatches(await readFile(join(root, path), 'utf8'), patterns);
       for (const key of Object.keys(totals)) totals[key] += counts[key];
     }

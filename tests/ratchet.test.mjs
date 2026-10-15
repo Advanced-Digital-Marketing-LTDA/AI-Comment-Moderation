@@ -25,6 +25,7 @@ test('the suppress ratchet counts fixme, option-style skips and option-style onl
 });
 test('the type ratchet counts any in unions', () => {
   assert.equal(countMatches('type P = string | any;', ratchets.type.patterns).anyType, 1);
+  assert.equal(countMatches('type H = () => any;', ratchets.type.patterns).anyType, 1);
 });
 test('a floor ratchet fails when a count drops and passes when it holds or grows', () => {
   assert.deepEqual(regressions('floor', { tests: 5 }, { tests: 5 }), []);
