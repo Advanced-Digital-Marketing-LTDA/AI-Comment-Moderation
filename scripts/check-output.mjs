@@ -37,8 +37,10 @@ const expectedIds = [
   'other-platforms',
 ];
 assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
-assert.ok(html.includes('Choose an AI comment moderation workflow'));
-assert.ok(html.includes('AI Comment Moderation: Workflows, Examples and Review Choices'));
+assert.ok(html.includes('My reviews of AI comment moderation tools'));
+assert.ok(
+  html.includes('AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices'),
+);
 assert.match(html, /rel="canonical" href="https:\/\/aicommentmoderation\.com\/"/);
 assert.equal(document.querySelectorAll('meta[name="robots"]').length, 1);
 assert.equal(
@@ -47,7 +49,8 @@ assert.equal(
   'Incorrect robots metadata for the selected artifact mode',
 );
 assert.ok(html.includes('Illustrative rules, not a live AI prediction'));
-assert.ok(html.includes('the team behind Moderaty'));
+assert.ok(html.includes('My reviews of AI comment moderation tools'));
+assert.ok(!html.includes('the team behind Moderaty'));
 assert.ok(html.includes('top-level YouTube comments'));
 const ids = new Set([...html.matchAll(/\bid="([^"]+)"/g)].map((m) => m[1]));
 assert.equal(ids.size, [...html.matchAll(/\bid="([^"]+)"/g)].length, 'IDs must be unique');

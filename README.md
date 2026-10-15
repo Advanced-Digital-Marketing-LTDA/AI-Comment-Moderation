@@ -8,7 +8,7 @@ Source for [AICommentModeration.com](https://aicommentmoderation.com), an Englis
 
 Readers can select one of ten fictional comments and compare cautious and stricter review policies. The explorer displays predefined decisions, reasons and missing context using local rules. Its label, "Illustrative rules, not a live AI prediction," describes the behavior: it does not run an AI model or moderate a real comment.
 
-The workflow chooser covers YouTube, social platforms, websites/CMSs and API-based workflows. The guide is published by the team behind Moderaty; its Moderaty section covers top-level YouTube comments only. The six-item checklist keeps state in the current tab without writing browser storage. All ten examples and both policy explanations remain readable when JavaScript is unavailable.
+The workflow chooser covers YouTube, social platforms, websites/CMSs and API-based workflows. The site presents my reviews of AI comment moderation tools; its Moderaty section covers top-level YouTube comments only. The six-item checklist keeps state in the current tab without writing browser storage. All ten examples and both policy explanations remain readable when JavaScript is unavailable.
 
 ## What's included
 

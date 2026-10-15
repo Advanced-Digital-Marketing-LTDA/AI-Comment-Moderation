@@ -13,7 +13,7 @@ test('hosting generation covers a distinct inline script on the real 404 templat
     await mkdir(join(dir, 'dist/client'), { recursive: true });
     await writeFile(
       join(dir, 'dist/client/index.html'),
-      '<head></head><h1>Choose an AI comment moderation workflow</h1><script>root()</script>',
+      '<head></head><h1>My reviews of AI comment moderation tools</h1><script>root()</script>',
     );
     await writeFile(
       join(dir, 'dist/client/404.html'),

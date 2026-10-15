@@ -4,7 +4,7 @@ import { securityHeaders } from '../src/lib/hosting-headers.mjs';
 import { buildMarker } from '../src/lib/build-provenance.mjs';
 let html = await readFile('dist/client/index.html', 'utf8');
 let errorHtml = await readFile('dist/client/404.html', 'utf8');
-if (!html.includes('Choose an AI comment moderation workflow'))
+if (!html.includes('My reviews of AI comment moderation tools'))
   throw new Error('Cannot prepare hosting without the expected built guide');
 const headers = securityHeaders(html + '\n' + errorHtml);
 // Keep the script policy in the HTML as well as the native header registry;

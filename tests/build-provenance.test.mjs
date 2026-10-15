@@ -12,7 +12,7 @@ async function generated(env, inspect = () => {}, prepare = async () => {}) {
     await mkdir(join(dir, 'dist/client/_astro'), { recursive: true });
     await writeFile(
       join(dir, 'dist/client/index.html'),
-      '<html><head></head><body><h1>Choose an AI comment moderation workflow</h1></body></html>',
+      '<html><head></head><body><h1>My reviews of AI comment moderation tools</h1></body></html>',
     );
     await writeFile(
       join(dir, 'dist/client/404.html'),

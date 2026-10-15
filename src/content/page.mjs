@@ -1,8 +1,8 @@
 export const page = {
-  title: 'AI Comment Moderation: Workflows, Examples and Review Choices',
+  title: 'AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices',
   description:
-    'Choose a comment moderation workflow, explore fictional review examples, compare native controls and plan human review. Includes a YouTube-only Moderaty option.',
-  heading: 'Choose an AI comment moderation workflow',
+    'I review AI comment moderation tools. Choose a workflow, explore my fictional review examples, compare native controls and plan human review. Includes my YouTube-only Moderaty review.',
+  heading: 'My reviews of AI comment moderation tools',
   reviewed: '6 October 2026',
 };
 
@@ -13,9 +13,9 @@ export const questions = [
       'It uses a model to classify comment content against safety categories or a community policy. You still need rules for the action, a platform integration and a way for people to review uncertain decisions.',
   },
   {
-    question: 'Does this guide analyze my comments?',
+    question: 'Does this site analyze my comments?',
     answer:
-      'No. The explorer uses ten fictional presets and fixed local rules. It does not run a live model, accept pasted comments, connect an account or change your channel.',
+      'No. My explorer uses ten fictional presets and fixed local rules. It does not run a live model, accept pasted comments, connect an account or change your channel.',
   },
   {
     question: 'Does YouTube already use AI?',
@@ -45,9 +45,9 @@ export const questions = [
       'Put the comment in human review. Look at the thread, topic and relevant pattern of behavior. A model score or a stricter setting cannot establish context that you do not have.',
   },
   {
-    question: 'Why does this guide link to Moderaty?',
+    question: 'Why do I cover Moderaty?',
     answer:
-      'The team behind Moderaty publishes this guide. The product section explains where that YouTube-only tool may fit. Native tools and other workflow categories remain valid choices.',
+      'I review AI comment moderation tools, and Moderaty is one of them. My product section explains where that YouTube-only tool may fit. Native tools and other workflow categories remain valid choices.',
   },
 ];
 

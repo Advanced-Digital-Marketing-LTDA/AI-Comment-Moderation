@@ -10,7 +10,7 @@ The target repository is Bonobo791/AI-Comment-Moderation. It was reported empty 
 
 - Title: AI Comment Moderation: Workflows, Examples and Review Choices
 - H1: Choose an AI comment moderation workflow
-- Publisher relationship: a practical guide from the team behind Moderaty
+- Publisher relationship: my reviews of AI comment moderation tools, written in first person
 - First scope statement: Learn how rules, AI and human review work together. Our Moderaty product section covers YouTube comments only.
 - Intended canonical: https://aicommentmoderation.com/
 - One main guide URL with section anchors; assets, crawler files and a real 404 are operational exceptions
