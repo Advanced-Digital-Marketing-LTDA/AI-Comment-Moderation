@@ -1,0 +1,73 @@
+name: Review tooling
+on:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  ratchets:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version-file: .node-version
+      - name: Fetch the base branch baseline
+        # A PR can edit its own baseline file, so compare against the base branch's copy.
+        # The first PR, before the base has one, falls back to its own file.
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          git fetch --depth=1 origin "$BASE_SHA"
+          git show "$BASE_SHA:.github/ratchet/baseline.json" > "$RUNNER_TEMP/baseline.json" \
+            || cp .github/ratchet/baseline.json "$RUNNER_TEMP/baseline.json"
+      - run: node scripts/ratchet.mjs test --baseline "$RUNNER_TEMP/baseline.json"
+      - run: node scripts/ratchet.mjs suppress --baseline "$RUNNER_TEMP/baseline.json"
+      - run: node scripts/ratchet.mjs type --baseline "$RUNNER_TEMP/baseline.json"
+  ai-review:
+    # Paid. Needs the ANTHROPIC_API_KEY repository secret; skipped without it and on forks.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write # post the review comment
+      id-token: write # claude-code-action exchanges this for its App token
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - name: Report missing secret
+        if: env.ANTHROPIC_API_KEY == ''
+        run: echo "::warning::ANTHROPIC_API_KEY is not set; AI review skipped."
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        if: env.ANTHROPIC_API_KEY != ''
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+      - name: Check out the plugin marketplace at a pinned commit
+        if: env.ANTHROPIC_API_KEY != ''
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: anthropics/claude-code
+          ref: 94506ff0d3bd9185f1752da36e968775021fb48f
+          path: .marketplace/claude-code
+          persist-credentials: false
+      - uses: anthropics/claude-code-action@a26b07d8c778b0c43f64618e5fd29fd0f8af72e8 # v1
+        if: env.ANTHROPIC_API_KEY != ''
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          plugin_marketplaces: ./.marketplace/claude-code
+          plugins: pr-review-toolkit@claude-code-plugins
+          # Without this the action's App token gets contents/issues write.
+          additional_permissions: |
+            contents: read
+            issues: read
+            pull_requests: write
+          prompt: |
+            Review pull request ${{ github.repository }}#${{ github.event.pull_request.number }}.
+            Run the pr-review-toolkit agents pr-test-analyzer and silent-failure-hunter on the diff.
+            Then do two adversarial passes: in each, try to break the change, and in the second pass
+            verify every finding against the current source, discarding any you cannot reproduce or
+            trace to a real caller or input. Post only verified findings as one PR comment.
