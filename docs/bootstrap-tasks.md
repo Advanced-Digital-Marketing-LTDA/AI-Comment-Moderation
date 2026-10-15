@@ -781,8 +781,8 @@ Exact root canonical/social URLs and root-only sitemap with preview policy. Forb
 
 ### Exact files and changes
 
-| Existing/new path                                                                                                              | Required exports/fields/configuration                                                                            | Generated/hand-authored rule                                                  |
-| ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Existing/new path                                                                                                              | Required exports/fields/configuration                                                                                                | Generated/hand-authored rule                                                  |
+| ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
 | src/layouts/BaseLayout.astro; src/pages/robots.txt.ts; src/pages/sitemap.xml.ts; src/pages/404.astro; scripts/check-output.mjs | One title/H1/canonical; truthful schema; preview noindex (robots.txt never disallows); authorized release root-only sitemap/indexing | Hand-authored/adapted source; generated dist/CSP/dependencies/reports ignored |
 
 ### Configuration contract

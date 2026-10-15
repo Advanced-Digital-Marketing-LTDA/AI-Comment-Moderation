@@ -2,16 +2,16 @@
 
 Content pages and crawler files are prerendered. The standalone Node adapter serves them; /healthz, /build.json and the 404 fallback run at request time. There is no CMS, authentication, collection or analytics.
 
-| Path                                                  | Response                                            | Indexing                                               | Cache                              |
-| ----------------------------------------------------- | --------------------------------------------------- | ------------------------------------------------------ | ---------------------------------- |
-| /, /?query#fragment                                   | Guide, 200; one canonical apex URL                  | Preview noindex; release indexable                     | no-cache                           |
+| Path                                                  | Response                                            | Indexing                                                                                     | Cache                              |
+| ----------------------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------- |
+| /, /?query#fragment                                   | Guide, 200; one canonical apex URL                  | Preview noindex; release indexable                                                           | no-cache                           |
 | /robots.txt, /sitemap.xml                             | Prerendered text/XML, 200                           | Never disallows crawling (previews stay noindex via meta/header); sitemap contains root only | Adapter defaults with revalidation |
-| /_astro/*                                             | Existing fingerprinted assets, 200                  | No sitemap entries                                     | immutable, one year                |
-| /favicon.svg, /social-card.svg, /social-card.png      | Public media, 200                                   | No sitemap entries                                     | Adapter defaults with revalidation |
-| /healthz                                              | Runtime plain text ok, 200                          | noindex                                                | no-store                           |
-| /build.json                                           | Runtime source SHA/release/public-file digests, 200 | noindex                                                | no-store                           |
-| /404.html                                             | Readable prerendered error template, 200            | noindex, no canonical                                  | no-store                           |
-| Unknown pages, missing assets, /healthz.txt, dotfiles | Genuine 404 with return link                        | noindex, no canonical                                  | no-store                           |
+| /_astro/*                                             | Existing fingerprinted assets, 200                  | No sitemap entries                                                                           | immutable, one year                |
+| /favicon.svg, /social-card.svg, /social-card.png      | Public media, 200                                   | No sitemap entries                                                                           | Adapter defaults with revalidation |
+| /healthz                                              | Runtime plain text ok, 200                          | noindex                                                                                      | no-store                           |
+| /build.json                                           | Runtime source SHA/release/public-file digests, 200 | noindex                                                                                      | no-store                           |
+| /404.html                                             | Readable prerendered error template, 200            | noindex, no canonical                                                                        | no-store                           |
+| Unknown pages, missing assets, /healthz.txt, dotfiles | Genuine 404 with return link                        | noindex, no canonical                                                                        | no-store                           |
 
 Noindex and robots directives do not restrict access. Externally exposed previews require approved access protection.
 
