@@ -8,7 +8,14 @@ let html = await readFile('dist/client/index.html', 'utf8');
 let errorHtml = await readFile('dist/client/404.html', 'utf8');
 if (!html.includes('My reviews of AI comment moderation tools'))
   throw new Error('Cannot prepare hosting without the expected built guide');
-const headers = securityHeaders(html + '\n' + errorHtml);
+// A build without the reviews directory is rejected later by check-output's sitemap count.
+const reviewPaths = existsSync('dist/client/reviews')
+  ? ['/reviews', ...reviews.map((review) => `/reviews/${review.slug}`)]
+  : [];
+const reviewPages = await Promise.all(
+  reviewPaths.map((path) => readFile(`dist/client${path}/index.html`, 'utf8')),
+);
+const headers = securityHeaders([html, errorHtml, ...reviewPages].join('\n'));
 // Keep the script policy in the HTML as well as the native header registry;
 // frame-ancestors requires an HTTP header and is omitted from the meta policy.
 const policy = headers['Content-Security-Policy'].replace("; frame-ancestors 'none'", '');
@@ -19,15 +26,11 @@ html = html.replace('</head>', `${meta}</head>`);
 errorHtml = errorHtml.replace('</head>', `${meta}</head>`);
 await writeFile('dist/client/index.html', html);
 await writeFile('dist/client/404.html', errorHtml);
-// A build without the reviews directory is rejected later by check-output's sitemap count.
-const reviewPaths = existsSync('dist/client/reviews')
-  ? ['/reviews', ...reviews.map((review) => `/reviews/${review.slug}`)]
-  : [];
-for (const path of reviewPaths) {
+for (const [index, path] of reviewPaths.entries()) {
   const file = `dist/client${path}/index.html`;
-  const page = await readFile(file, 'utf8');
-  if (!page.includes('</head>')) throw new Error(`Cannot add CSP metadata to ${file}`);
-  await writeFile(file, page.replace('</head>', `${meta}</head>`));
+  if (!reviewPages[index].includes('</head>'))
+    throw new Error(`Cannot add CSP metadata to ${file}`);
+  await writeFile(file, reviewPages[index].replace('</head>', `${meta}</head>`));
 }
 const publicFiles = [];
 async function collect(dir) {
