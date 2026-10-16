@@ -60,12 +60,12 @@ export const reviews = [
     tagline: 'A YouTube-only moderator with spam, scam and hate detection and a free tier.',
     youtube: 'Yes, YouTube only, long-form and Shorts',
     approach:
-      'Detects spam, scams and hate, adds intent-based classification on Plus and above, scores sentiment, and can auto-delete or hold comments.',
+      'Detects spam, scams and hate with AI comment classification, scores sentiment, and can auto-delete or hold comments.',
     pricing:
-      'Free (3 rules, 20 actions a month), Starter $19 (10 rules, 500 actions), Creator $49 (25 rules, 1,500 actions), and a custom plan on request. Seven-day refund.',
+      'Free (3 rules, 20 actions a month), Starter $19 (10 rules, 500 actions), Creator $49 (25 rules, 1,500 actions), Pro $139 (50 rules, 5,000 actions), and a custom plan on request. Seven-day refund.',
     bestFor: 'A solo creator who wants a low-cost start and can live with monthly action caps.',
     limits: [
-      'Action caps run from 20 to 1,500 a month on the plans above.',
+      'Action caps run from 20 to 5,000 a month on the plans above.',
       'Free channels are checked every 2 hours.',
       'One channel per account.',
       'No like, heart or pin, because of a YouTube API limit.',
@@ -215,7 +215,7 @@ export const reviews = [
     youtube: 'Yes',
     approach:
       'Contextual AI that handles irony and slang, with hybrid AI and human review in 45+ languages.',
-    pricing: 'Guardian from €1,000/mo, Sentinel from €3,000/mo, Commander on contact.',
+    pricing: 'Custom, by demo only.',
     bestFor: 'A platform or publisher with very large comment volume.',
     limits: ['Built for scale, so it may be more than a single channel needs.'],
     sources: [
