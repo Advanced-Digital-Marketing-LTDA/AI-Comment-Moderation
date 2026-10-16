@@ -1,6 +1,6 @@
 # Current stack readiness — 8 October 2026
 
-This section supersedes the older static-host profile below. The selected stack mirrors Site-Bootstrap-ADM at 49db7fecae8b8ee6357d44e2fa3a9f14d00c52f8: Astro 7.3.6, @astrojs/node 11.1.6, Node 24.19.0, npm 11.9.0, one npm lockfile and a standalone Node runtime on port 4321. Content stays prerendered. Runtime routes provide health, artifact identity and genuine 404 responses. Sessions, nginx and TinaCMS are absent.
+This section supersedes the older static-host profile below. The selected stack mirrors Site-Bootstrap-ADM at 49db7fecae8b8ee6357d44e2fa3a9f14d00c52f8: Astro 7.3.6, @astrojs/node 11.1.6, Node 24.19.0, npm 11.9.0, one npm lockfile and a standalone Node runtime on port 8080. Content stays prerendered. Runtime routes provide health, artifact identity and genuine 404 responses. Sessions, nginx and TinaCMS are absent.
 
 | Requirement                                  | State                 | Evidence                                                                       |
 | -------------------------------------------- | --------------------- | ------------------------------------------------------------------------------ |
@@ -9,9 +9,9 @@ This section supersedes the older static-host profile below. The selected stack 
 | Locked dependencies                          | Verified locally      | npm ci; exact compatible Astro/Node versions                                   |
 | Docker runtime                               | Verified locally      | Real Node-only Docker build, healthy nonroot runtime and expanded HTTP smoke   |
 | CMS, forms, accounts, database, collection   | Not applicable        | Not selected; no provider integration added                                    |
-| Public release, Coolify routing, TLS and DNS | Pending operator work | Port changes to 4321; no deployment performed                                  |
+| Public release, Coolify routing, TLS and DNS | Pending operator work | Port changes to 8080; no deployment performed                                  |
 
-> Current stack (8 October 2026): standalone Astro/Node on port 4321, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
+> Current stack (8 October 2026): standalone Astro/Node on port 8080, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
 
 # Bootstrap status
 
@@ -28,7 +28,7 @@ Preparation status dated 6 October 2026. Local checks include the final 23:17-23
 - Primary host / artifact / start contract: Coolify Dockerfile preparation; dist/ static output, nonroot Nginx 8080, nginx -g 'daemon off;'. Actual Coolify resource/deployment/proxy/TLS remains pending
 - Selected capabilities: fictional local explorer/checklist and static editorial guide. No CMS/contact/email/search/accounts/analytics/localization/model inference/provider or database
 - CI-only model provider: the owner-requested `ai-review` job in `.github/workflows/review-tooling.yml` uses `CLAUDE_CODE_OAUTH_TOKEN` to review pull requests. It is not a site capability or runtime provider, and it skips while the secret is unset. See docs/environment.md
-- Provider decisions/blockers: host operator/access, DNS/TLS/cache/logging and release/license/legal/contact decisions block production. They do not block local source checks
+- Provider decisions/blockers: host operator/access, DNS/TLS/cache/logging and release approval block production. They do not block local source checks. No owner license, legal or contact gate applies to this site (owner decision, 15 October 2026)
 - Local/test resources: npm locked tools, Node tests and four actual fast-check properties, built-DOM, Playwright/axe, isolated CI Docker image. Fixtures are synthetic; no production data/credentials
 - Production/external-write boundaries: current authority covers bounded local adoption/checks. Earlier authorized review publication is in [PR #1](https://github.com/Bonobo791/AI-Comment-Moderation/pull/1), open and ready for review at the 23:24 UTC checkpoint. This alignment did not change its readiness state. New commit/push/merge/deployment/DNS/spend/provider action requires the corresponding authority
 - Template adoption: literal pinned assets and the strict helper are instantiated/adapted; exact source/blob/target map and exclusions are in docs/template-provenance.md. No upstream application clone ancestry is claimed
@@ -46,7 +46,7 @@ Each applicable ID has its own complete setup-task record in docs/bootstrap-task
 | S01-S03, S05-S09 public content                     | Verified local source/output/DOM; alignment browser/manual/release gates pending       | Individual S records; screenshots/200% zoom/AT and actual host evidence remain pending                                                                          |
 | S04 CMS                                             | Not applicable                                                                         | No CMS/content generation/provider selected; hand-authored source content                                                                                       |
 | H01-H07 server-enabled content                      | Not applicable                                                                         | No Astro adapter, request-time application endpoint, form/delivery, runtime secrets or account backend; Nginx static-file serving does not select these modules |
-| L01 website personal-data lifecycle                 | Pending actual host/operator logs/notices; local fictional source/DOM effects verified | L01; docs/data-inventory.md and data-lifecycle.md; legal/contact/retention/access owner unresolved                                                              |
+| L01 website personal-data lifecycle                 | Pending actual host/operator logs/notices; local fictional source/DOM effects verified | L01; docs/data-inventory.md and data-lifecycle.md; retention/access owner unresolved                                                                            |
 | T01-T05, T07 contracts/properties                   | Verified local properties/helper/build/DOM; current CI/browser/HTTP layers pending     | Individual T records; four independent properties, strict replay, DOM/browser/layers                                                                            |
 | T06 fault/mutation/review                           | Verified local scoped run and reviewed survivors/accounting                            | Actual run 154/156 killed; 2 equivalent survivors; properties covered 133/156, 0 credited first kills; exact input/report evidence in docs/verification.md      |
 | P01 default-off scope                               | Verified local default-off output contract; alignment browser/network evidence pending | P01; all actual routes analytics-denied; no collector added                                                                                                     |
@@ -79,9 +79,9 @@ Run in this repository with Node 24.19.0/npm 11.9.0. Command names are implement
 - Independent feature work that can proceed: bounded original content/layout/test work within the approved static scope, without provider credentials
 - Blocked integration/feature work: any newly selected provider/account/contact/collection/backend requires scope/decisions/authority; no such feature is selected now
 - Integration ready for: baseline isolated Docker/Nginx preview only. Current marker/digest-pinned image/expanded HTTP and artifact workflow runtime plus actual Coolify public host need their own evidence
-- Production readiness: pending D01-D08, owner license/legal/contact/content/privacy, real manual UI/accessibility and actual host/served identity/rollback checks
+- Production readiness: pending D01-D08, content/privacy, real manual UI/accessibility and actual host/served identity/rollback checks
 - N/A modules: CMS, hybrid application backend, accounts/database/migration, collection activation, delivery and scheduler/alerts, because the brief selects none
-- Public artifact/license review: scoped upstream MIT retained; original source remains UNLICENSED pending owner choice. No template license automatically grants rights to the whole guide
+- Public artifact/license review: scoped upstream MIT retained; original source remains UNLICENSED. No owner license gate applies to this site (owner decision, 15 October 2026). No template license automatically grants rights to the whole guide
 - Verified commit: published baseline [702b2908800be6cce2d58a610195b2bfe334e38a](https://github.com/Bonobo791/AI-Comment-Moderation/commit/702b2908800be6cce2d58a610195b2bfe334e38a), [successful PR run 37539175975](https://github.com/Bonobo791/AI-Comment-Moderation/actions/runs/37539175975). At preparation the local alignment was uncommitted and not covered by that baseline run
 
 Historical original build/review-fix counts, hashes, image resolutions and earlier run links remain in docs/verification.md. They identify those artifacts only.

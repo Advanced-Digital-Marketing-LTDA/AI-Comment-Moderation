@@ -15,13 +15,13 @@ RUN npm run build && npm prune --omit=dev --ignore-scripts
 
 FROM node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df AS runtime
 WORKDIR /app
-ENV NODE_ENV=production HOST=0.0.0.0 PORT=4321
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=8080
 COPY --from=build --chown=node:node /app/dist ./dist
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
 COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md
 USER node
-EXPOSE 4321
+EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+process.env.PORT+'/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 CMD ["node", "./dist/server/entry.mjs"]

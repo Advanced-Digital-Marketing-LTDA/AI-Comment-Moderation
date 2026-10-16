@@ -1,4 +1,4 @@
-> Current stack (8 October 2026): standalone Astro/Node on port 4321, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
+> Current stack (8 October 2026): standalone Astro/Node on port 8080, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
 
 # AICommentModeration.com
 
@@ -43,7 +43,7 @@ The Playwright suite targets the built preview at port 4531. It covers interacti
 
 ## Coolify
 
-The repository includes a multi-stage Dockerfile for Coolify's Dockerfile build pack. The standalone Astro Node adapter runs as a nonroot user on internal port 4321. CI checks container health, source/artifact identity, genuine 404 responses and security headers. See `docs/coolify.md` for settings and smoke commands. No Coolify resource or deployment was created.
+The repository includes a multi-stage Dockerfile for Coolify's Dockerfile build pack. The standalone Astro Node adapter runs as a nonroot user on internal port 8080. CI checks container health, source/artifact identity, genuine 404 responses and security headers. See `docs/coolify.md` for settings and smoke commands. No Coolify resource or deployment was created.
 
 ## Build behavior
 

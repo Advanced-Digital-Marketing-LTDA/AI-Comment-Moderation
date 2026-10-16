@@ -15,7 +15,7 @@ This registry instantiates the pinned upstream environment-registry template. In
 
 ## Deployment constants and scope
 
-Node 24.19.0/npm 11.9.0/Astro 7.3.6 remain consistent across runtime pins, package metadata and CI. The Node adapter consumes runtime HOST and PORT, defaulting to 0.0.0.0 and 4321 in Docker. Docker injects public build ARGs during compilation and HOST/PORT at runtime. Configuration changes to origin/indexing/marker require rebuilding. Node adapter runtime uses static output/config and no credentials, database, volume or private application setting.
+Node 24.19.0/npm 11.9.0/Astro 7.3.6 remain consistent across runtime pins, package metadata and CI. The Node adapter consumes runtime HOST and PORT, defaulting to 0.0.0.0 and 8080 in Docker. Docker injects public build ARGs during compilation and HOST/PORT at runtime. Configuration changes to origin/indexing/marker require rebuilding. Node adapter runtime uses static output/config and no credentials, database, volume or private application setting.
 
 The local Dockerfile now pins the versioned images to the exact immutable digests observed in baseline CI. The revised image configuration still needs its own container CI result; the authorized production operator must verify actual Coolify settings and the served artifact. No production setting was changed.
 
@@ -29,4 +29,4 @@ Unit/property tests reject localhost, www, previews, lookalikes, old/canceled do
 
 ## Standalone server runtime
 
-HOST defaults to 0.0.0.0 in Docker; use 127.0.0.1 for local checks. PORT defaults to 4321 in Docker and may be overridden at runtime. Export these for npm start; .env loading applies to Astro build/dev configuration. SITE_URL, SITE_RELEASE and SITE_COMMIT are public build settings. No runtime secrets or persistent storage are required.
+HOST defaults to 0.0.0.0 in Docker; use 127.0.0.1 for local checks. PORT defaults to 8080 in Docker and may be overridden at runtime. Export these for npm start; .env loading applies to Astro build/dev configuration. SITE_URL, SITE_RELEASE and SITE_COMMIT are public build settings. No runtime secrets or persistent storage are required.

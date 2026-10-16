@@ -4,7 +4,7 @@
 - State: source/build/browser/standalone HTTP and container checks verified locally.
 - Dependencies: existing prerendered guide, exact Astro 7.3.6 / Node adapter 11.1.6, Node 24.19.0 and npm 11.9.0.
 - Files: package.json/package-lock.json, astro.config.mjs, Dockerfile, src/middleware.ts, src/pages/healthz.ts, src/pages/build.json.ts, src/pages/[...path].ts, scripts/generate-hosting.mjs, output/preview helpers, hosting tests and CI. deploy/nginx.conf is removed.
-- Configuration: build SITE_URL, SITE_RELEASE and optional SITE_COMMIT; runtime HOST=0.0.0.0 and PORT=4321. Sessions are disabled. No CMS or storage.
+- Configuration: build SITE_URL, SITE_RELEASE and optional SITE_COMMIT; runtime HOST=0.0.0.0 and PORT=8080. Sessions are disabled. No CMS or storage.
 - Working directory: repository root (/workspace/AI-Comment-Moderation in this session).
 - Commands: npm ci; npm run check; npm run lint; npm run format:check; npm test; npm run test:fault; npm run build; npm run test:dom; npm run test:e2e. For runtime smoke, start `HOST=127.0.0.1 PORT=4535 npm start` in one terminal, then run `node scripts/smoke-host.mjs http://127.0.0.1:4535` in another terminal; stop the server afterward.
 - Positive checks: existing guide/fixtures/assets/canonical policy, health response, build identity and hashed public bytes, runtime errors, browser interactions, nonroot Node container.
@@ -14,7 +14,7 @@
 
 The previous task records below are historical and do not select nginx for this branch.
 
-> Current stack (8 October 2026): standalone Astro/Node on port 4321, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
+> Current stack (8 October 2026): standalone Astro/Node on port 8080, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
 
 # Bootstrap requirement tasks
 
@@ -430,12 +430,12 @@ Property requirement:
 
 ## Requirement C08: Public reuse and license hygiene
 
-- Status: pending owner public-license gate; local template notices adopted
+- Status: local template notices adopted; no owner public-license gate applies (owner decision, 15 October 2026)
 - Gate: release
 - Applies when: selected static guide
 - Depends on: C01; exact upstream template pin; owner source-license decision
 - Owner: Local implementer; owner/authorized releaser for external/operator decisions
-- Blocker and independent work that can continue: Owner public-source license/legal/content review pending; dependency license audit not claimed. Permitted isolated source/tests can continue
+- Blocker and independent work that can continue: Content review pending; dependency license audit not claimed. Permitted isolated source/tests can continue
 
 ### Required behavior
 
@@ -457,9 +457,9 @@ Exact source/blob/target map and original upstream notice retained; original ass
 
 Working directory/runtime/order: Evidence and execution context above. Real browser/container commands require their actual permitted runtime; no production execution authorized.
 
-| Command                                                                                   | Expected observable result                                                                                                                | Actual result or pending                                                                                          |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| git diff --check; git diff -- AGENTS.md docs THIRD_PARTY_NOTICES.md; npm run format:check | All copied/adapted assets attributed with actual blob SHAs and scoped notice; owner completes source-license review before public release | E0 baseline; E1 local source/build/DOM passed; listed runtime gates separate; E2 production/operator gate pending |
+| Command                                                                                   | Expected observable result                                                                                                         | Actual result or pending                                                                                          |
+| ----------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| git diff --check; git diff -- AGENTS.md docs THIRD_PARTY_NOTICES.md; npm run format:check | All copied/adapted assets attributed with actual blob SHAs and scoped notice; owner completes content review before public release | E0 baseline; E1 local source/build/DOM passed; listed runtime gates separate; E2 production/operator gate pending |
 
 ### Required tests
 
@@ -481,8 +481,8 @@ Property requirement:
 - Actual commands, exit results and discovered names/counts: E0 baseline; E1 local source/build/DOM passed; listed runtime gates separate; E2 production/operator gate pending; exact links/results in docs/verification.md
 - Built output/browser/persistence/provider observations: Scoped template/helper MIT attribution and actual blob mappings retained; original source remains UNLICENSED
 - Deliberate-fault/scoped mutation result: See T06; no task-specific mutation score claimed
-- Remaining integration/operator limitations: Owner public-source license/legal/content review pending; dependency license audit not claimed
-- Done criterion: All copied/adapted assets attributed with actual blob SHAs and scoped notice; owner completes source-license review before public release
+- Remaining integration/operator limitations: Content review pending; dependency license audit not claimed
+- Done criterion: All copied/adapted assets attributed with actual blob SHAs and scoped notice; owner completes content review before public release
 
 ## Requirement C09: Developer handoff and separate gates
 
@@ -1399,7 +1399,7 @@ Property requirement:
 - Applies when: selected static guide
 - Depends on: Static profile; selected host decision; D01/D05
 - Owner: Local implementer; owner/authorized releaser for external/operator decisions
-- Blocker and independent work that can continue: Legal operator/contact and actual Coolify/proxy logs/retention/deletion remain pending. Permitted isolated source/tests can continue
+- Blocker and independent work that can continue: Actual Coolify/proxy logs/retention/deletion remain pending. Permitted isolated source/tests can continue
 
 ### Required behavior
 
@@ -1445,7 +1445,7 @@ Property requirement:
 - Actual commands, exit results and discovered names/counts: E0 baseline; E1 local source/build/DOM passed; listed runtime gates separate; E2 production/operator gate pending; exact links/results in docs/verification.md
 - Built output/browser/persistence/provider observations: Final local fictional-content/source/DOM checks passed; no provider data store selected
 - Deliberate-fault/scoped mutation result: See T06; no task-specific mutation score claimed
-- Remaining integration/operator limitations: Legal operator/contact and actual Coolify/proxy logs/retention/deletion remain pending
+- Remaining integration/operator limitations: Actual Coolify/proxy logs/retention/deletion remain pending
 - Done criterion: Actual host log fields/purpose/access/retention/delete/owner/evidence inventory and truthful notice confirmed; local zero-effects checks pass
 
 ## Requirement P01: Default-off collection and selected scope
@@ -1905,7 +1905,7 @@ Property requirement:
 - Status: pending actual release/rollback record
 - Gate: release
 - Applies when: selected static guide / Coolify preparation
-- Depends on: D01-D06; legal/license/manual gates; release authority
+- Depends on: D01-D06; manual gates; release authority
 - Owner: Local implementer; owner/authorized releaser for external/operator decisions
 - Blocker and independent work that can continue: No production release/rollback/host-specific command or operator identity observed. Permitted isolated source/tests can continue
 
@@ -1963,7 +1963,7 @@ Property requirement:
 - Applies when: selected static guide / Coolify preparation
 - Depends on: C08; S09; L01; P01; P05; D01-D07
 - Owner: Local implementer; owner/authorized releaser for external/operator decisions
-- Blocker and independent work that can continue: Source license/legal/contact/manual accessibility/current exact-head runtime CI/host/TLS/DNS/identity/logging/rollback still pending. Permitted isolated source/tests can continue
+- Blocker and independent work that can continue: Manual accessibility/current exact-head runtime CI/host/TLS/DNS/identity/logging/rollback still pending. Permitted isolated source/tests can continue
 
 ### Required behavior
 
@@ -2009,7 +2009,7 @@ Property requirement:
 - Actual commands, exit results and discovered names/counts: E0 baseline; E1 local source/build/DOM passed; listed runtime gates separate; E2 production/operator gate pending; exact links/results in docs/verification.md
 - Built output/browser/persistence/provider observations: Final local source/build/DOM/fault/property/mutation gates passed; production gates remain separate
 - Deliberate-fault/scoped mutation result: See T06; no task-specific mutation score claimed
-- Remaining integration/operator limitations: Source license/legal/contact/manual accessibility/current exact-head runtime CI/host/TLS/DNS/identity/logging/rollback still pending
+- Remaining integration/operator limitations: Manual accessibility/current exact-head runtime CI/host/TLS/DNS/identity/logging/rollback still pending
 - Done criterion: Actual authorized served artifact/host matches approved source and all applicable release/recovery evidence complete
 
 ## Not-applicable requirement exclusions
@@ -2022,4 +2022,4 @@ Property requirement:
 
 ## Current stopping point
 
-D01-D08 remain production-pending. Final local clean install/source/lint/format, 90 ordinary tests, four focused 1000-run properties, both known faults, checked build, 4 DOM tests, scoped mutation/accounting and independent source review passed. At the dated preparation checkpoint, alignment browser/container/marker/pinned-image/artifact workflow runtime needed new approved publication/exact-head CI. Manual screenshots/200% zoom/AT, actual Coolify/proxy/TLS/DNS/served identity/recovery and owner license/legal/contact decisions remain open. Local checks and historical baseline CI do not establish those gates.
+D01-D08 remain production-pending. Final local clean install/source/lint/format, 90 ordinary tests, four focused 1000-run properties, both known faults, checked build, 4 DOM tests, scoped mutation/accounting and independent source review passed. At the dated preparation checkpoint, alignment browser/container/marker/pinned-image/artifact workflow runtime needed new approved publication/exact-head CI. Manual screenshots/200% zoom/AT, actual Coolify/proxy/TLS/DNS/served identity/recovery remain open. No owner license, legal or contact gate applies (owner decision, 15 October 2026). Local checks and historical baseline CI do not establish those gates.

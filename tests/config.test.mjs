@@ -16,7 +16,7 @@ test('release origin rejects corrected-away, copied, preview and lookalike hosts
     'https://youtubeaimoderation.com',
     'http://aicommentmoderation.com',
     'https://www.aicommentmoderation.com',
-    'http://localhost:4321',
+    'http://localhost:8080',
     'https://preview.aicommentmoderation.com',
     'https://aicommentmoderation.com.evil.invalid',
     'https://aicommentmoderation.com:444',

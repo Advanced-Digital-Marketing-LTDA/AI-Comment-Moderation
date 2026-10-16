@@ -10,7 +10,7 @@ test('Coolify runs the locked Astro standalone Node server as nonroot', async ()
   assert.match(docker, /npm prune --omit=dev/);
   assert.match(docker, /COPY --from=build.*\/app\/dist/);
   assert.match(docker, /USER node/);
-  assert.match(docker, /EXPOSE 4321/);
+  assert.match(docker, /EXPOSE 8080/);
   assert.match(docker, /HEALTHCHECK/);
   assert.match(docker, /CMD \["node", "\.\/dist\/server\/entry\.mjs"\]/);
   assert.doesNotMatch(docker, /nginx|astro preview|COPY.*\.env/);

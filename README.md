@@ -23,7 +23,7 @@ There is no CMS, account system, contact form, database, analytics collector, mo
 
 ## Stack and project files
 
-Use Node **24.19.0** and npm **11.9.0**, as pinned in [.node-version](.node-version) and [package.json](package.json). Astro **7.3.6** and @astrojs/node **11.1.6** build prerendered content in `dist/client/` and a standalone server in `dist/server/`. The final Node container runs as the node user on port **4321**. Both stages use the same digest-pinned Node image.
+Use Node **24.19.0** and npm **11.9.0**, as pinned in [.node-version](.node-version) and [package.json](package.json). Astro **7.3.6** and @astrojs/node **11.1.6** build prerendered content in `dist/client/` and a standalone server in `dist/server/`. The final Node container runs as the node user on port **8080**. Both stages use the same digest-pinned Node image.
 
 | File                                                              | Purpose                                             |
 | ----------------------------------------------------------------- | --------------------------------------------------- |
@@ -61,7 +61,7 @@ npm run test:dom
 HOST=127.0.0.1 PORT=4531 npm start
 ```
 
-Run `npm start` from the repository root to start the production server (port 4321 by default). The command above selects loopback port 4531; in PowerShell set `$env:HOST` and `$env:PORT` before `npm start`. Open http://127.0.0.1:4531 to inspect it. The DOM command also creates deliverables/AICommentModeration-preview.html, a standalone noindex preview you can open without a server.
+Run `npm start` from the repository root to start the production server (port 8080 by default). The command above selects loopback port 4531; in PowerShell set `$env:HOST` and `$env:PORT` before `npm start`. Open http://127.0.0.1:4531 to inspect it. The DOM command also creates deliverables/AICommentModeration-preview.html, a standalone noindex preview you can open without a server.
 
 For browser checks, stop the running server, install Playwright's browser and let the test runner start its own preview:
 
@@ -89,7 +89,7 @@ Build generation writes `dist/build.json`; the runtime `/build.json` route serve
 
 ## Launch on Coolify
 
-Use the repository's Dockerfile build pack. The image installs locked dependencies, runs source checks and builds Astro, then copies the built server, public files and production dependencies into Node. The runtime runs `node ./dist/server/entry.mjs` with `HOST=0.0.0.0` and `PORT=4321`. No secrets, database or persistent volume are needed. Configure these values for an authorized preview or release:
+Use the repository's Dockerfile build pack. The image installs locked dependencies, runs source checks and builds Astro, then copies the built server, public files and production dependencies into Node. The runtime runs `node ./dist/server/entry.mjs` with `HOST=0.0.0.0` and `PORT=8080`. No secrets, database or persistent volume are needed. Configure these values for an authorized preview or release:
 
 | Coolify setting                      | Value                                                           |
 | ------------------------------------ | --------------------------------------------------------------- |
@@ -98,14 +98,14 @@ Use the repository's Dockerfile build pack. The image installs locked dependenci
 | Build pack / build strategy          | Dockerfile                                                      |
 | Base Directory                       | /                                                               |
 | Dockerfile Location                  | /Dockerfile                                                     |
-| Ports Exposes                        | 4321                                                            |
+| Ports Exposes                        | 8080                                                            |
 | Build arguments                      | Managed manually in Dockerfile                                  |
 | SITE_URL, as a build variable        | https://aicommentmoderation.com                                 |
 | SITE_RELEASE, as a build variable    | false for preview; true for an approved public release          |
 | SITE_COMMIT, as a build variable     | Full lowercase SHA of the selected source; required for release |
 | Persistent storage / runtime secrets | None required                                                   |
 
-Update SITE_COMMIT when selecting a new release commit. The image's HEALTHCHECK requests /healthz on internal port 4321 and expects ok. Coolify uses that image-owned check for a non-Compose Dockerfile application. It proves Node-server availability; artifact and UI checks are separate. The site requires an apex-root deployment and does not support a path prefix.
+Update SITE_COMMIT when selecting a new release commit. The image's HEALTHCHECK requests /healthz on internal port 8080 and expects ok. Coolify uses that image-owned check for a non-Compose Dockerfile application. It proves Node-server availability; artifact and UI checks are separate. The site requires an apex-root deployment and does not support a path prefix.
 
 Before public launch, the owner/operator must confirm the source and release approval, domain/DNS ownership and routing, HTTPS certificate and redirects, preview protection, legal operator/contact/privacy details and host/proxy log retention. Configure the authorized server and domain, deploy the selected artifact, then verify the root page, local assets, real missing-page 404, /healthz, /build.json identity and indexable metadata/robots/sitemap. Complete manual keyboard, 200% zoom and screen-reader review, and retain a known-good artifact for rollback.
 

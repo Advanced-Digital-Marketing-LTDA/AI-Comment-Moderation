@@ -22,7 +22,7 @@ test('GitHub container verification builds locally and never publishes an image'
   assert.ok(workflow.includes('docker build'));
   assert.ok(workflow.includes('scripts/smoke-host.mjs'));
   assert.ok(!workflow.includes('nginx'));
-  assert.ok(workflow.includes('127.0.0.1:4321:4321'));
+  assert.ok(workflow.includes('127.0.0.1:8080:8080'));
   assert.ok(!workflow.includes('docker push'));
   assert.ok(!workflow.includes('docker login'));
 });
