@@ -1,6 +1,6 @@
 # Current stack readiness — 8 October 2026
 
-This section supersedes the older static-host profile below. The selected stack mirrors Site-Bootstrap-ADM at 49db7fecae8b8ee6357d44e2fa3a9f14d00c52f8: Astro 7.3.6, @astrojs/node 11.1.6, Node 24.19.0, npm 11.9.0, one npm lockfile and a standalone Node runtime on port 4321. Content stays prerendered. Runtime routes provide health, artifact identity and genuine 404 responses. Sessions, nginx and TinaCMS are absent.
+This section supersedes the older static-host profile below. The selected stack mirrors Site-Bootstrap-ADM at 49db7fecae8b8ee6357d44e2fa3a9f14d00c52f8: Astro 7.3.6, @astrojs/node 11.1.6, Node 24.19.0, npm 11.9.0, one npm lockfile and a standalone Node runtime on port 8080. Content stays prerendered. Runtime routes provide health, artifact identity and genuine 404 responses. Sessions, nginx and TinaCMS are absent.
 
 | Requirement                                  | State                 | Evidence                                                                       |
 | -------------------------------------------- | --------------------- | ------------------------------------------------------------------------------ |
@@ -9,9 +9,9 @@ This section supersedes the older static-host profile below. The selected stack 
 | Locked dependencies                          | Verified locally      | npm ci; exact compatible Astro/Node versions                                   |
 | Docker runtime                               | Verified locally      | Real Node-only Docker build, healthy nonroot runtime and expanded HTTP smoke   |
 | CMS, forms, accounts, database, collection   | Not applicable        | Not selected; no provider integration added                                    |
-| Public release, Coolify routing, TLS and DNS | Pending operator work | Port changes to 4321; no deployment performed                                  |
+| Public release, Coolify routing, TLS and DNS | Pending operator work | Port changes to 8080; no deployment performed                                  |
 
-> Current stack (8 October 2026): standalone Astro/Node on port 4321, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
+> Current stack (8 October 2026): standalone Astro/Node on port 8080, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
 
 # Bootstrap status
 

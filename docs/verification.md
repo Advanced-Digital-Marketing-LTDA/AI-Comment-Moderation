@@ -31,7 +31,7 @@ The code review found and corrected adapter error/alias header behavior and deve
 
 Commands ran from /workspace/AI-Comment-Moderation. Docker builds used BUILDX_CONFIG=/workspace/work/buildx and --secret id=build_ca,src=/etc/ssl/certs/ca-certificates.crt for this environment; ordinary hosts need no certificate override. Container check: docker run with loopback 4536:4321, docker inspect health, then node scripts/smoke-host.mjs http://127.0.0.1:4536.
 
-Public Coolify deployment, changing its exposed/routed port to 4321, domain/TLS/DNS and operator release checks remain pending. At the end of local verification, no commit, push, merge or deployment had been performed. The owner subsequently authorized committing and pushing this branch. Earlier results below are historical.
+Public Coolify deployment, changing its exposed/routed port to 8080, domain/TLS/DNS and operator release checks remain pending. At the end of local verification, no commit, push, merge or deployment had been performed. The owner subsequently authorized committing and pushing this branch. Earlier results below are historical.
 
 # Verification record
 

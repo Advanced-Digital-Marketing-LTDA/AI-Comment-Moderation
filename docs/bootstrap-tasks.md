@@ -4,7 +4,7 @@
 - State: source/build/browser/standalone HTTP and container checks verified locally.
 - Dependencies: existing prerendered guide, exact Astro 7.3.6 / Node adapter 11.1.6, Node 24.19.0 and npm 11.9.0.
 - Files: package.json/package-lock.json, astro.config.mjs, Dockerfile, src/middleware.ts, src/pages/healthz.ts, src/pages/build.json.ts, src/pages/[...path].ts, scripts/generate-hosting.mjs, output/preview helpers, hosting tests and CI. deploy/nginx.conf is removed.
-- Configuration: build SITE_URL, SITE_RELEASE and optional SITE_COMMIT; runtime HOST=0.0.0.0 and PORT=4321. Sessions are disabled. No CMS or storage.
+- Configuration: build SITE_URL, SITE_RELEASE and optional SITE_COMMIT; runtime HOST=0.0.0.0 and PORT=8080. Sessions are disabled. No CMS or storage.
 - Working directory: repository root (/workspace/AI-Comment-Moderation in this session).
 - Commands: npm ci; npm run check; npm run lint; npm run format:check; npm test; npm run test:fault; npm run build; npm run test:dom; npm run test:e2e. For runtime smoke, start `HOST=127.0.0.1 PORT=4535 npm start` in one terminal, then run `node scripts/smoke-host.mjs http://127.0.0.1:4535` in another terminal; stop the server afterward.
 - Positive checks: existing guide/fixtures/assets/canonical policy, health response, build identity and hashed public bytes, runtime errors, browser interactions, nonroot Node container.
@@ -14,7 +14,7 @@
 
 The previous task records below are historical and do not select nginx for this branch.
 
-> Current stack (8 October 2026): standalone Astro/Node on port 4321, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
+> Current stack (8 October 2026): standalone Astro/Node on port 8080, with prerendered content in dist/client and runtime /healthz. The nginx references and older results below describe historical verification only. Current commands and hosting contracts are in docs/coolify.md, docs/routes.md and README.md. New verification is recorded in docs/verification.md.
 
 # Bootstrap requirement tasks
 
