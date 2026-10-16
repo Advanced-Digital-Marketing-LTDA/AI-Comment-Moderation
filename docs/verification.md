@@ -114,7 +114,7 @@ Refreshed JSON SHA-256: 4778d6cf42db28642a3b23029d2b00d356b94dd409a1e75857f46862
 
 Manual mobile/desktop screenshot inspection, true 200% zoom, visible focus/live announcements and assistive-technology behavior remain pending. Historical browser/container startup restrictions apply to those attempts; no blocked attempt was counted as executed assertions. The implemented browser suite contains 10 tests, including print-color validation, and had not run for this alignment at preparation; a post-merge local run on 11 October 2026 executed all 10 (see Post-merge local verification). The new marker, digest-pinned images, expanded HTTP smoke and bounded artifact workflow likewise require approved publication and their own exact-head CI/runtime results.
 
-Actual Coolify/proxy/TLS/DNS/redirect/cache/log lifecycle, protected external-preview access, immutable approved image/artifact, served identity, source license/legal operator/contact/content/privacy, release authority and rollback/recovery remain pending. D01-D08 stay production-pending. There is no selected CMS/contact/collector/database/scheduler/provider delivery to verify.
+Actual Coolify/proxy/TLS/DNS/redirect/cache/log lifecycle, protected external-preview access, immutable approved image/artifact, served identity, content/privacy, release authority and rollback/recovery remain pending. D01-D08 stay production-pending. There is no selected CMS/contact/collector/database/scheduler/provider delivery to verify.
 
 ## Post-merge local verification
 
@@ -180,7 +180,7 @@ The original self-contained offline preview was 68632 bytes, SHA-256 85426de5925
 - Docker, Podman and nginx executables are unavailable locally; image build, syntax and HTTP checks above ran in GitHub CI
 - Manual review of phone/desktop screenshots, visible focus and screen-reader announcements, assistive-technology testing, true 200% zoom and visual/performance QA remain pending
 - Coolify UI/SSH/deployment, actual proxy/TLS/redirect/header behavior, deployed commit/artifact identity, protected preview access, host log retention, branch protections, crawler/indexing/AI settings and field metrics remain unverified
-- Public license, guide legal operator/contact, selected host/privacy retention and release authorization remain pending
+- Selected host/privacy retention and release authorization remain pending. No owner license, legal or contact gate applies (owner decision, 15 October 2026)
 
 DOM tests establish DOM/script contracts. Chromium/axe and container smoke add browser and HTTP evidence in their tested environments. They do not establish accessibility certification or behavior on a future Coolify/public host.
 
