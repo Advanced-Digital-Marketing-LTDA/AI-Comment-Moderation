@@ -2,7 +2,7 @@ export const reviewedOn = '15 October 2026';
 
 export const reviewMethod = [
   'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario and Bodyguard.ai my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
-  'I only use sources published or updated in the last six months. Each page lists its sources with their dates after the review. Where a page shows no date, I say so and cannot confirm it meets that window.',
+  'I only use sources published or updated in the last six months.',
   'Accuracy figures are the reviewers’ own tests or vendor claims. I treat them as unverified.',
   'Prices change. Check the vendor’s page before you decide.',
 ];
@@ -62,11 +62,11 @@ export const reviews = [
     approach:
       'Detects spam, scams and hate, adds intent-based classification on Plus and above, scores sentiment, and can auto-delete or hold comments.',
     pricing:
-      'Free (15 actions), Plus $9.99, Pro $19.99, Premium $49.99, plus a custom plan. Pricing is labelled April 2026 in the review I used.',
+      'Free (3 rules, 20 actions a month), Starter $19 (10 rules, 500 actions), Creator $49 (25 rules, 1,500 actions), and a custom plan on request. Seven-day refund.',
     bestFor: 'A solo creator who wants a low-cost start and can live with monthly action caps.',
     limits: [
-      'Action caps run from 15 to 3,000 a month.',
-      'Paid plans sync about every 30 minutes.',
+      'Action caps run from 20 to 1,500 a month on the plans above.',
+      'Free channels are checked every 2 hours.',
       'One channel per account.',
       'No like, heart or pin, because of a YouTube API limit.',
     ],
@@ -93,7 +93,7 @@ export const reviews = [
     limits: [
       'It deletes, because YouTube has no single-comment hide, and there is no undo.',
       'Only your own channel’s videos.',
-      'Plan limits are not published.',
+      'Credits: a comment costs 0.1 credit, or 1 with an AI reply draft. Lite €39 (1,000 credits, 1 brand), Pro €129 (4,000, 4 brands), Business €249 (10,000, 10 brands).',
     ],
     sources: [
       {
@@ -187,7 +187,8 @@ export const reviews = [
     tagline: 'A shared social inbox where moderation is one part of a bigger suite.',
     youtube: 'Yes, in a shared inbox',
     approach: 'Keyword automations plus AI suggestions to hide or reply.',
-    pricing: 'From EUR 39/mo, AI replies from EUR 178/mo, custom plans from EUR 599/mo.',
+    pricing:
+      'Publisher Small €39/mo, Medium €89/mo, Large €199/mo, with the Inbox add-on at the same prices. Small with Inbox is €78/mo.',
     bestFor: 'A team that wants one inbox for many channels and treats moderation as a feature.',
     limits: ['Moderation is one part of a broader suite, not the main product.'],
     sources: [replientComparison, spikerzRoundup],
@@ -200,7 +201,7 @@ export const reviews = [
     tagline: 'Enterprise moderation with a sensitivity setting that changes by time of day.',
     youtube: 'Yes',
     approach: 'AI classification and auto-hide, adjustable by time of day, with an audit timeline.',
-    pricing: 'On request.',
+    pricing: 'Not published. A 30-day free trial is available on request.',
     bestFor: 'A large organization that wants to buy through sales.',
     limits: ['Enterprise only, with no self-serve plan.', 'No AI reply suggestions.'],
     sources: [replientComparison],
@@ -214,12 +215,9 @@ export const reviews = [
     youtube: 'Yes',
     approach:
       'Contextual AI that handles irony and slang, with hybrid AI and human review in 45+ languages.',
-    pricing: 'Custom, by demo only.',
+    pricing: 'Guardian from €1,000/mo, Sentinel from €3,000/mo, Commander on contact.',
     bestFor: 'A platform or publisher with very large comment volume.',
-    limits: [
-      'No public pricing.',
-      'Built for scale, so it may be more than a single channel needs.',
-    ],
+    limits: ['Built for scale, so it may be more than a single channel needs.'],
     sources: [
       {
         label: 'Alto roundup of comment moderation tools',
