@@ -27,9 +27,8 @@ The target repository is Bonobo791/AI-Comment-Moderation. It was reported empty 
 6. rules-and-review: repeatable policy, exceptions and local checklist
 7. moderaty: disclosed related product with top-level YouTube-only scope
 8. questions: useful reader questions and action limitations
-9. sources: primary evidence, substantive review date and public correction route
-10. privacy-and-ownership: actual local data behavior and unresolved release details
-11. other-platforms: honest category exits without unsupported Moderaty routing
+9. privacy-and-ownership: actual local data behavior and unresolved release details
+10. other-platforms: honest category exits without unsupported Moderaty routing
 
 Anchors are sections of one document, not separate indexable pages. No blog, extra SEO landing pages, domain redirects or local-business profiles are part of the build. No ranking or AI-citation promise is made.
 
