@@ -995,7 +995,8 @@ select {
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
-.other-grid article {
+.other-grid article,
+.pick-card {
   background: #f7f9f2;
   border: 1px solid #cfdbc3;
   padding: 28px;
@@ -1003,7 +1004,8 @@ select {
   display: flex;
   flex-direction: column;
 }
-.other-grid h3 {
+.other-grid h3,
+.pick-card h3 {
   font-size: 1.3rem;
   line-height: 1.2;
   margin-top: 13px;
@@ -1822,20 +1824,13 @@ select {
   margin-top: 30px;
 }
 .pick-card {
-  background: #f7f9f2;
-  border: 1px solid #cfdbc3;
   padding: 24px;
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
   align-items: flex-start;
 }
 .pick-card .pill {
   white-space: normal;
 }
 .pick-card h3 {
-  font-size: 1.3rem;
-  line-height: 1.2;
   margin-top: 14px;
 }
 .pick-card p {
