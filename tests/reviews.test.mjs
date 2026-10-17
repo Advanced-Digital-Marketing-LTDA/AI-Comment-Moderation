@@ -13,9 +13,9 @@ test('review slugs are unique, URL-safe and resolvable', () => {
   assert.equal(reviewBySlug('missing'), undefined);
 });
 
-test('the hub covers nine tools and keeps CommentMod on hold', () => {
-  assert.equal(reviews.length, 9);
-  assert.ok(!reviews.some((review) => /commentmod/i.test(review.name + review.slug)));
+test('the hub covers the ten tools, including CommentMod', () => {
+  assert.equal(reviews.length, 10);
+  assert.ok(reviews.some((review) => review.slug === 'commentmod'));
 });
 
 test('every review has the fields its page renders', () => {

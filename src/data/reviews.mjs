@@ -1,7 +1,7 @@
 export const reviewedOn = '15 October 2026';
 
 export const reviewMethod = [
-  'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario and Bodyguard.ai my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
+  'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario, Bodyguard.ai and CommentMod my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
   'I only use sources published or updated in the last six months.',
   'Accuracy figures are the reviewers’ own tests or vendor claims. I treat them as unverified.',
   'Prices change. Check the vendor’s page before you decide.',
@@ -226,6 +226,23 @@ export const reviews = [
       },
     ],
     caveat: 'My only source is a vendor-written roundup, so treat every detail as unconfirmed.',
+  },
+  {
+    slug: 'commentmod',
+    name: 'CommentMod',
+    tagline: 'Comment analytics for YouTube first, with batch delete and report.',
+    youtube: 'Yes, analyzes comments and can delete or report them in bulk',
+    approach:
+      'Labels comments by sentiment (positive, neutral or negative), reads intent and engagement patterns, and deletes or reports large batches of comments.',
+    pricing: 'Custom, based on usage, channels and features, with a free trial.',
+    bestFor: 'A creator who wants audience insight from comments and occasional bulk clean-up.',
+    limits: [
+      'It is more of an insight tool than a moderator, with limited workflow features for teams.',
+      'No public prices, comment volumes or channel caps.',
+    ],
+    sources: [spikerzRoundup],
+    caveat:
+      'My only source is a competitor’s blog, which also ranks its rivals, so treat every detail as unconfirmed.',
   },
 ];
 

@@ -21,10 +21,10 @@ for (const path of ['/reviews/', '/reviews/napoleoncat/', '/reviews/moderaty/'])
     }
   });
 }
-test('the hub lists nine tools that each open their review', async ({ page }) => {
+test('the hub lists ten tools that each open their review', async ({ page }) => {
   await page.goto('/reviews/');
   const links = page.locator('#tool-list article h3 a');
-  await expect(links).toHaveCount(9);
+  await expect(links).toHaveCount(10);
   await links.first().click();
   await expect(page).toHaveURL(/\/reviews\/moderaty\/$/);
   await expect(page.locator('h1')).toHaveText('Moderaty review');
