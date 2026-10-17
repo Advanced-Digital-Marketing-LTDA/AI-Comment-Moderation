@@ -172,7 +172,7 @@ export const reviews = [
     pricing:
       'Per NapoleonCat’s own articles (Aug to Oct 2026, USD): Standard from $89/mo, Pro from $109/mo, Expert from $139/mo or $119/mo billed annually. Its pricing page loads the plan cards dynamically, so I could not read them there.',
     bestFor: 'A team that already needs a multi-channel inbox and wants moderation inside it.',
-    priceFrom: '$89/mo',
+    priceFrom: '$139/mo for Expert, or $119/mo yearly',
     freeOption: 'None stated',
     buying: 'Published plans',
     limits: [
@@ -209,7 +209,7 @@ export const reviews = [
     pricing:
       'Publisher Small €39/mo, Medium €89/mo, Large €199/mo, with the Inbox add-on at the same prices. Small with Inbox is €78/mo.',
     bestFor: 'A team that wants one inbox for many channels and treats moderation as a feature.',
-    priceFrom: '€39/mo',
+    priceFrom: '€78/mo with the Inbox add-on',
     freeOption: 'None stated',
     buying: 'Published plans',
     limits: ['Moderation is one part of a broader suite, not the main product.'],
