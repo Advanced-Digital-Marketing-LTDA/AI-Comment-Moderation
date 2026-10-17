@@ -1,7 +1,7 @@
 export const reviewedOn = '15 October 2026';
 
 export const reviewMethod = [
-  'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario and Bodyguard.ai my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
+  'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario, Bodyguard.ai and CommentMod my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
   'I only use sources published or updated in the last six months.',
   'Accuracy figures are the reviewers’ own tests or vendor claims. I treat them as unverified.',
   'Prices change. Check the vendor’s page before you decide.',
@@ -20,7 +20,8 @@ const replientComparison = {
 };
 
 /**
- * Each review is built only from the listed sources. `sources[].date` is the
+ * Each review is built only from the listed sources. `priceFrom`, `freeOption` and
+ * `buying` summarize `pricing` for the homepage comparison table. `sources[].date` is the
  * date shown on the source page, or "undated" when it shows none.
  */
 export const reviews = [
@@ -34,6 +35,9 @@ export const reviews = [
     pricing:
       'Self-hosted $0 (you bring an OpenAI key). Hosted $5/mo including 100 AI classifications. Lifetime $49 once for 1,000 spots (you bring an OpenAI key).',
     bestFor: 'A small YouTube channel that wants a review queue and clear rules before AI.',
+    priceFrom: '$5/mo hosted, or $0 self-hosted',
+    freeOption: 'Yes, self-hosted is free',
+    buying: 'Published plans',
     limits: [
       'No replies, live chat or other platforms.',
       'Classification credits do not roll over.',
@@ -64,6 +68,9 @@ export const reviews = [
     pricing:
       'Free (3 rules, 20 actions a month), Starter $19 (10 rules, 500 actions), Creator $49 (25 rules, 1,500 actions), Pro $139 (50 rules, 5,000 actions), and a custom plan on request. Seven-day refund.',
     bestFor: 'A solo creator who wants a low-cost start and can live with monthly action caps.',
+    priceFrom: 'Free',
+    freeOption: 'Yes, a free plan',
+    buying: 'Published plans',
     limits: [
       'Action caps run from 20 to 5,000 a month on the plans above.',
       'Free channels are checked every 2 hours.',
@@ -90,6 +97,9 @@ export const reviews = [
       'Auto-deletes spam, hate and scam comments, tags sentiment, and writes AI replies in a brand voice.',
     pricing: 'From EUR 39/mo with a 14-day free trial.',
     bestFor: 'A brand that wants moderation and reply drafting in one tool.',
+    priceFrom: '€39/mo',
+    freeOption: '14-day free trial',
+    buying: 'Published plans',
     limits: [
       'It deletes, because YouTube has no single-comment hide, and there is no undo.',
       'Only your own channel’s videos.',
@@ -114,6 +124,9 @@ export const reviews = [
       'Reads intent, takes custom rules written in plain language, and covers 25+ languages.',
     pricing: 'Custom. No public pricing.',
     bestFor: 'A team that wants to talk to sales and write rules in plain language.',
+    priceFrom: 'Custom',
+    freeOption: 'None stated',
+    buying: 'Sales call',
     limits: ['No public pricing, so you cannot compare cost before a sales call.'],
     sources: [spikerzRoundup],
     caveat: 'This is Spikerz’s own blog, which also ranks its competitors.',
@@ -128,6 +141,9 @@ export const reviews = [
     pricing:
       'Per Respondology’s pricing page (modified 7 Oct 2026, USD, billed annually): Basic $999/mo, Standard from $2,599/mo, Premium from $4,499/mo, Enterprise custom.',
     bestFor: 'A large brand with a big comment volume and a budget to match.',
+    priceFrom: '$999/mo',
+    freeOption: 'None stated',
+    buying: 'Published plans',
     limits: [
       'Basic covers up to 10,000 comments a year and one profile.',
       'The page lists 100+ languages on every plan but describes Standard as English-only, and does not resolve that.',
@@ -156,6 +172,9 @@ export const reviews = [
     pricing:
       'Per NapoleonCat’s own articles (Aug to Oct 2026, USD): Standard from $89/mo, Pro from $109/mo, Expert from $139/mo or $119/mo billed annually. Its pricing page loads the plan cards dynamically, so I could not read them there.',
     bestFor: 'A team that already needs a multi-channel inbox and wants moderation inside it.',
+    priceFrom: '$139/mo for Expert, or $119/mo yearly',
+    freeOption: 'None stated',
+    buying: 'Published plans',
     limits: [
       'Auto-moderation is part of Expert, not the cheaper plans.',
       'Classification is keyword-led.',
@@ -190,6 +209,9 @@ export const reviews = [
     pricing:
       'Publisher Small €39/mo, Medium €89/mo, Large €199/mo, with the Inbox add-on at the same prices. Small with Inbox is €78/mo.',
     bestFor: 'A team that wants one inbox for many channels and treats moderation as a feature.',
+    priceFrom: '€78/mo with the Inbox add-on',
+    freeOption: 'None stated',
+    buying: 'Published plans',
     limits: ['Moderation is one part of a broader suite, not the main product.'],
     sources: [replientComparison, spikerzRoundup],
     caveat:
@@ -203,6 +225,9 @@ export const reviews = [
     approach: 'AI classification and auto-hide, adjustable by time of day, with an audit timeline.',
     pricing: 'Not published. A 30-day free trial is available on request.',
     bestFor: 'A large organization that wants to buy through sales.',
+    priceFrom: 'Not published',
+    freeOption: '30-day trial on request',
+    buying: 'Sales call',
     limits: ['Enterprise only, with no self-serve plan.', 'No AI reply suggestions.'],
     sources: [replientComparison],
     caveat:
@@ -217,6 +242,9 @@ export const reviews = [
       'Contextual AI that handles irony and slang, with hybrid AI and human review in 45+ languages.',
     pricing: 'Custom, by demo only.',
     bestFor: 'A platform or publisher with very large comment volume.',
+    priceFrom: 'Custom',
+    freeOption: 'None stated',
+    buying: 'Demo first',
     limits: ['Built for scale, so it may be more than a single channel needs.'],
     sources: [
       {
@@ -226,6 +254,26 @@ export const reviews = [
       },
     ],
     caveat: 'My only source is a vendor-written roundup, so treat every detail as unconfirmed.',
+  },
+  {
+    slug: 'commentmod',
+    name: 'CommentMod',
+    tagline: 'Comment analytics for YouTube first, with batch delete and report.',
+    youtube: 'Yes, analyzes comments and can delete or report them in bulk',
+    approach:
+      'Labels comments by sentiment (positive, neutral or negative), reads intent and engagement patterns, and deletes or reports large batches of comments.',
+    pricing: 'Custom, based on usage, channels and features, with a free trial.',
+    bestFor: 'A creator who wants audience insight from comments and occasional bulk clean-up.',
+    priceFrom: 'Custom',
+    freeOption: 'Free trial',
+    buying: 'Custom quote',
+    limits: [
+      'It is more of an insight tool than a moderator, with limited workflow features for teams.',
+      'No public prices, comment volumes or channel caps.',
+    ],
+    sources: [spikerzRoundup],
+    caveat:
+      'My only source is a competitor’s blog, which also ranks its rivals, so treat every detail as unconfirmed.',
   },
 ];
 

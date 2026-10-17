@@ -2,7 +2,7 @@ export const page = {
   title: 'AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices',
   description:
     'I review AI comment moderation tools. Choose a workflow, explore my fictional review examples, compare native controls and plan human review. Includes my YouTube-only Moderaty review.',
-  heading: 'My reviews of AI comment moderation tools',
+  heading: 'AI Comment Moderation',
   reviewed: '6 October 2026',
 };
 

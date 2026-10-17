@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { scenarios } from '../src/data/scenarios.mjs';
+import { reviews } from '../src/data/reviews.mjs';
 
 test('Astro npm commands use a portable Node launcher instead of shell environment assignments', async () => {
   const { scripts } = JSON.parse(await readFile('package.json', 'utf8'));
@@ -27,6 +28,7 @@ test('the keyboard skip target has an explicit visible inward focus outline', as
 
 const anchors = [
   'what-this-covers',
+  'tool-reviews',
   'try-the-examples',
   'choose-a-workflow',
   'native-settings',
@@ -48,7 +50,8 @@ function guide(examples) {
   const options = scenarios
     .map((scenario) => `<option value="${scenario.id}">${escape(scenario.label)}</option>`)
     .join('');
-  return `<html><head><title>AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices</title><link rel="canonical" href="https://aicommentmoderation.com/"><meta name="robots" content="noindex,follow"></head><body><h1>My reviews of AI comment moderation tools</h1><div class="hero-visual" role="group"></div><span id="checklist-count" hidden></span><button id="reset-checklist" hidden></button><p>Illustrative rules, not a live AI prediction; My reviews of AI comment moderation tools; top-level YouTube comments</p>${sections}<select>${options}</select><details class="all-examples"><div class="static-example-grid">${examples}</div></details></body></html>`;
+  const reviewLinks = reviews.map((review) => `<a href="/reviews/${review.slug}/"></a>`).join('');
+  return `<html><head><title>AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices</title><link rel="canonical" href="https://aicommentmoderation.com/"><meta name="robots" content="noindex,follow"></head><body><h1>My reviews of AI comment moderation tools</h1><div class="hero-visual" role="group"></div><span id="checklist-count" hidden></span><button id="reset-checklist" hidden></button><p>Illustrative rules, not a live AI prediction; My reviews of AI comment moderation tools; top-level YouTube comments</p>${sections}${reviewLinks}<select>${options}</select><details class="all-examples"><div class="static-example-grid">${examples}</div></details></body></html>`;
 }
 async function checkOutput(html, release = false) {
   const dir = await mkdtemp(join(tmpdir(), 'aicm-output-review-'));

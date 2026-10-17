@@ -27,6 +27,7 @@ assert.match(
 );
 const expectedIds = [
   'what-this-covers',
+  'tool-reviews',
   'try-the-examples',
   'choose-a-workflow',
   'native-settings',
@@ -40,6 +41,11 @@ const expectedIds = [
 ];
 assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1);
 assert.ok(html.includes('My reviews of AI comment moderation tools'));
+for (const review of reviews)
+  assert.ok(
+    html.includes(`href="/reviews/${review.slug}/"`),
+    `Homepage must link to the ${review.name} review`,
+  );
 assert.ok(
   html.includes('AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices'),
 );

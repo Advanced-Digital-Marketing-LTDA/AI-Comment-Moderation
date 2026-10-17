@@ -3,7 +3,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ScenarioExplorer from '../components/ScenarioExplorer.astro';
 import { page, questions, checklist } from '../content/page.mjs';
 import { workflowFor } from '../lib/scenario-rules.mjs';
+import { reviews, reviewBySlug } from '../data/reviews.mjs';
 const firstWorkflow = workflowFor('youtube');
+const quickPicks = [
+  {
+    label: 'Best free start',
+    slug: 'moderaty',
+    why: 'Open source, and free to host yourself with your own OpenAI key.',
+  },
+  {
+    label: 'Best low-cost hosted plan',
+    slug: 'commentshark',
+    why: 'A free tier and paid plans from $19/mo, for solo creators.',
+  },
+  {
+    label: 'Best for brands that want replies too',
+    slug: 'replient',
+    why: 'Moderation and reply drafts in a brand voice, in one tool.',
+  },
+  {
+    label: 'Best at very large scale',
+    slug: 'bodyguard-ai',
+    why: 'Contextual AI with human review, built for platform-scale volume.',
+  },
+].map((pick) => ({ ...pick, review: reviewBySlug(pick.slug) }));
 ---
 
 <BaseLayout title={page.title} description={page.description}>
@@ -13,10 +36,7 @@ const firstWorkflow = workflowFor('youtube');
         <span class="tiny-dot"></span>My reviews of AI comment moderation tools
       </p>
       <h1>{page.heading}</h1>
-      <p class="hero-intro">
-        I look at how rules, AI and human review work together. My Moderaty review covers YouTube
-        comments only.
-      </p>
+      <p class="hero-intro">Reviews of comment moderation tools for YouTube creators</p>
       <div class="hero-actions">
         <a class="button button-dark" href="#try-the-examples">
           Try fictional examples <span aria-hidden="true">↗</span>
@@ -106,6 +126,55 @@ const firstWorkflow = workflowFor('youtube');
       </a>
     </div>
   </div>
+
+  <section class="section container" id="tool-reviews">
+    <div class="section-heading">
+      <p class="eyebrow">Tool reviews</p>
+      <h2>Which tool fits your channel</h2>
+    </div>
+    <div class="pick-grid">
+      {quickPicks.map((pick) => (
+        <article class="pick-card">
+          <span class="pill">{pick.label}</span>
+          <h3>{pick.review?.name}</h3>
+          <p>{pick.why}</p>
+          <a class="text-link" href={`/reviews/${pick.slug}/`}>
+            Read the {pick.review?.name} review <span aria-hidden="true">→</span>
+          </a>
+        </article>
+      ))}
+    </div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <caption>{`All ${reviews.length} tools compared`}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Best for</th>
+            <th scope="col">Starting price</th>
+            <th scope="col">Free plan or trial</th>
+            <th scope="col">Buying</th>
+          </tr>
+        </thead>
+        <tbody>
+          {reviews.map((review) => (
+            <tr>
+              <th scope="row">
+                <a href={`/reviews/${review.slug}/`}>{review.name}</a>
+              </th>
+              <td data-label="Best for">{review.bestFor}</td>
+              <td data-label="Starting price">{review.priceFrom}</td>
+              <td data-label="Free plan or trial">{review.freeOption}</td>
+              <td data-label="Buying">{review.buying}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="small quiet">
+      Prices come from each review and change often. <a href="/reviews/">See all reviews</a>
+    </p>
+  </section>
 
   <section class="section container" id="try-the-examples">
     <div class="section-heading">
