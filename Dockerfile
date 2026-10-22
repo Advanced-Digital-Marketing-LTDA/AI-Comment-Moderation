@@ -19,7 +19,6 @@ ENV NODE_ENV=production HOST=0.0.0.0 PORT=8080
 COPY --from=build --chown=node:node /app/dist ./dist
 COPY --from=build --chown=node:node /app/node_modules ./node_modules
 COPY --from=build /app/package.json ./package.json
-COPY THIRD_PARTY_NOTICES.md ./THIRD_PARTY_NOTICES.md
 USER node
 EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \

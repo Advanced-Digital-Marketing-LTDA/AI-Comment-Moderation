@@ -10,7 +10,7 @@ The standalone Astro/Node stack is merged on main through PRs #1–3; current ma
 
 Use Site-Bootstrap-ADM when available. Content is prerendered by Astro and served by its standalone Node adapter on port 8080. Runtime routes provide /healthz, /build.json and a 404 fallback. Do not introduce nginx or TinaCMS. Keep docs/bootstrap.md and docs/bootstrap-tasks.md verified/pending/not-applicable with exact evidence. Each applicable requirement needs its owner, dependencies, files, configuration, working directory, executable commands, positive/negative tests, forbidden effects and done criteria. Keep docs/routes.md and docs/environment.md current.
 
-Use Node 24.19.0, npm 11.9.0 and Astro 7.3.6 with the committed npm lockfile. The original guide source remains UNLICENSED. The adopted upstream template/helper portions retain their scoped MIT notice in THIRD_PARTY_NOTICES.md and the exact mapping in docs/template-provenance.md. This is template instantiation in an existing application, with no upstream clone-ancestry claim.
+Use Node 24.19.0, npm 11.9.0 and Astro 7.3.6 with the committed npm lockfile. The repository is licensed under PolyForm Shield 1.0.0 (LICENSE); the exact template mapping is in docs/template-provenance.md. This is template instantiation in an existing application, with no upstream clone-ancestry claim.
 
 ## Verification
 

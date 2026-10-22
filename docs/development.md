@@ -66,7 +66,7 @@ The standalone Node server adapter is selected. No CMS generation, database, acc
 - `docs/bootstrap.md`: observed requirement status and command results
 - `docs/content-evidence.md`: content sources and limits
 
-Original CSS, workflow illustration, icon and social SVG/PNG were authored for this project. No platform logos, user comments, customer data, copied testimonials or external fonts are used. The bootstrap reference is [Site-Bootstrap-ADM at 916df29d](https://github.com/Bonobo791/Site-Bootstrap-ADM/commit/916df29d7410b4a9a5048ed69819b5da448a2ecf); its actual document templates and strict property-options asset are now instantiated/adopted locally. Original application/content/assets are preserved; no Lippincott application code or clone ancestry is claimed. The scoped MIT notice is in THIRD_PARTY_NOTICES.md.
+Original CSS, workflow illustration, icon and social SVG/PNG were authored for this project. No platform logos, user comments, customer data, copied testimonials or external fonts are used. The bootstrap reference is [Site-Bootstrap-ADM at 916df29d](https://github.com/Bonobo791/Site-Bootstrap-ADM/commit/916df29d7410b4a9a5048ed69819b5da448a2ecf); its actual document templates and strict property-options asset are now instantiated/adopted locally. Original application/content/assets are preserved; no Lippincott application code or clone ancestry is claimed.
 
 ## Public marker and browser evidence
 

@@ -6,7 +6,7 @@ Source: [Bonobo791/Site-Bootstrap-ADM at 916df29d7410b4a9a5048ed69819b5da448a2ec
 
 The upstream repository is a skill/reference/template collection with a runnable testing demonstration. It is not a runnable Astro site scaffold. This project preserves its existing Astro application and instantiates actual upstream document/operational assets in place. Its Git history does not claim template-clone ancestry, and no Lippincott application code, brand, CMS credentials or client data was copied.
 
-The earlier version cited the bootstrap guidance. This local alignment adopts the actual pinned template structures and the shared strict property-options helper. Target-specific content, commands, origins and authority take precedence over illustrative upstream defaults. See THIRD_PARTY_NOTICES.md for the retained scoped MIT notice.
+The earlier version cited the bootstrap guidance. This local alignment adopts the actual pinned template structures and the shared strict property-options helper. Target-specific content, commands, origins and authority take precedence over illustrative upstream defaults.
 
 ## Exact file map
 
@@ -21,7 +21,6 @@ The earlier version cited the bootstrap guidance. This local alignment adopts th
 | [skills/site-bootstrap-adm/assets/env.example](https://github.com/Bonobo791/Site-Bootstrap-ADM/blob/916df29d7410b4a9a5048ed69819b5da448a2ecf/skills/site-bootstrap-adm/assets/env.example)                                                         | 440d59ddea4d5ef685c199cf6c740ce80c99b030 | .env.example                       | Adapted template                                                                   | Selected public build settings; unselected collector and dry-run examples omitted; no values borrowed                |
 | [skills/site-bootstrap-adm/assets/gitignore.fragment](https://github.com/Bonobo791/Site-Bootstrap-ADM/blob/916df29d7410b4a9a5048ed69819b5da448a2ecf/skills/site-bootstrap-adm/assets/gitignore.fragment)                                           | 538c0f012c007560c37e68ff2078b77815efb03b | .gitignore                         | Adapted template                                                                   | Merged selected environment/dependency/generated/report/log rules; existing npm lockfile retained                    |
 | [skills/site-bootstrap-adm/assets/fast-check-example/property-options.mjs](https://github.com/Bonobo791/Site-Bootstrap-ADM/blob/916df29d7410b4a9a5048ed69819b5da448a2ecf/skills/site-bootstrap-adm/assets/fast-check-example/property-options.mjs) | 3b38880086a0f7abb3b3c5614c196262c9f5ab12 | tests/helpers/property-options.mjs | Copied executable helper, Upstream function body verbatim with provenance comments | Shared strict controls drive the actual target properties; synthetic upstream demo is not copied as product coverage |
-| [LICENSE](https://github.com/Bonobo791/Site-Bootstrap-ADM/blob/916df29d7410b4a9a5048ed69819b5da448a2ecf/LICENSE)                                                                                                                                   | 9eb43714d8a8000bf65e9510a46f9bdd094bf9ad | THIRD_PARTY_NOTICES.md             | Verbatim notice with scoped introduction                                           | MIT applies to adopted upstream portions; original project remains UNLICENSED                                        |
 
 The marker and hosting behavior come from the neutral worked-example pattern and D04 contract; the implementer authors the target implementation. The provenance row for a file is not proof of its runtime behavior. Current checks and remaining gates belong in docs/verification.md and docs/bootstrap-tasks.md.
 
@@ -43,8 +42,7 @@ The actual lippincott-example.md maps inspected application patterns into a neut
 
 ## License scope
 
-- Upstream adopted template/helper portions: MIT, Copyright (c) 2026 Site and App Bootstrap contributors; full notice retained in THIRD_PARTY_NOTICES.md
-- Original guide/application/source/assets and target-authored additions: existing owner-controlled UNLICENSED status remains. No repository-wide MIT license was added and no owner public-license decision is implied
+- Repository code, adopted template/helper portions and target-authored additions: PolyForm Shield 1.0.0; see LICENSE and COMMERCIAL.md
 - Dependency licenses: remain with installed packages; this notice is not a complete dependency license audit or a production license clearance
 - Publication preparation checkpoint, 6 October 2026 at 23:24 UTC: this alignment was local/uncommitted. Final local checks are recorded in docs/verification.md. New source publication requires the corresponding approval and a dated exact-head CI record; no merge or deployment follows from template adoption
 
