@@ -35,7 +35,7 @@ Use Node **24.19.0** and npm **11.9.0**, as pinned in [.node-version](.node-vers
 | [Dockerfile](Dockerfile) and [astro.config.mjs](astro.config.mjs) | Standalone Node build and HTTP behavior             |
 | [.github/workflows/checks.yml](.github/workflows/checks.yml)      | Source, browser and isolated-container verification |
 
-The foundation document templates and strict property-test helper come from a pinned Site-Bootstrap-ADM revision. See [template provenance](docs/template-provenance.md) and [third-party notices](THIRD_PARTY_NOTICES.md). Original guide source remains UNLICENSED; the adopted upstream portions retain their scoped MIT notice.
+The foundation document templates and strict property-test helper come from a pinned Site-Bootstrap-ADM revision. See [template provenance](docs/template-provenance.md).
 
 ## Run locally
 
@@ -112,3 +112,10 @@ Before public launch, the owner/operator must confirm the source and release app
 See [Coolify setup and isolated smoke commands](docs/coolify.md). The smoke helper targets a loopback **preview** container; it is not a public-release verifier. Current upstream references: [Dockerfile deployment](https://coolify.io/docs/applications/builds/dockerfile), [build variables](https://coolify.io/docs/applications/configuration/environment-variables) and [health checks](https://coolify.io/docs/applications/configuration/health-checks).
 
 Preparing a build, pushing source or passing CI does not deploy the site or change DNS. [Verification records](docs/verification.md) distinguish tested source/container behavior from public-host and release evidence.
+
+## License
+
+AI-Comment-Moderation is licensed under the [PolyForm Shield License 1.0.0](LICENSE).
+Commercial use is permitted when it complies with that license. For uses not
+permitted by PolyForm Shield, see [commercial licensing](COMMERCIAL.md).
+Third-party components keep their own licenses.

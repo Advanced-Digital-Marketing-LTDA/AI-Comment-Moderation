@@ -1,9 +1,3 @@
-// Copied unchanged from Site-Bootstrap-ADM; MIT License.
-// Copyright (c) 2026 Site and App Bootstrap contributors.
-// Source commit: 916df29d7410b4a9a5048ed69819b5da448a2ecf
-// Source blob: 3b38880086a0f7abb3b3c5614c196262c9f5ab12
-// Source path: skills/site-bootstrap-adm/assets/fast-check-example/property-options.mjs
-// License: https://github.com/Bonobo791/Site-Bootstrap-ADM/blob/916df29d7410b4a9a5048ed69819b5da448a2ecf/LICENSE
 // Keep the upstream function body verbatim for source verification.
 // prettier-ignore
 export function propertyOptions(env = process.env) {
