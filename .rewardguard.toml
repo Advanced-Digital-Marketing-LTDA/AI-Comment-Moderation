@@ -11,3 +11,10 @@ effort = "low"
 [content]
 enabled = true
 
+
+# Existing repository contracts; evidence remains scoped to its actual target/revision.
+[content.context]
+B = ["docs/project-specification.md"]
+I = ["docs/routes.md"]
+P = ["docs/project-specification.md", "docs/data-lifecycle.md"]
+S = ["docs/content-evidence.md"]
