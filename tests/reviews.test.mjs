@@ -39,15 +39,10 @@ test('every cited source is an allowlisted HTTPS destination with a date', () =>
 test('review copy avoids ownership claims and discloses its lack of hands-on testing', () => {
   const text = JSON.stringify([reviews, reviewMethod]);
   assert.ok(!/(owner|team behind|my own product)/i.test(text));
+  const noHandsOnDisclosure =
+    /\b(?:did not|didn't|never|not)\s+(?:personally\s+)?(?:test|run|ran|use|operate)\w*\b(?=[^.!?]*\btools?\b)(?=[^.!?]*\breal channel\b)[^.!?]*/i;
   assert.ok(
-    reviewMethod.some((line) => {
-      const disclosure = line.toLowerCase();
-      const saysNoTesting = /\b(?:did not|didn't|never|not tested|no hands-on)\b/.test(disclosure);
-      const namesUse = /\b(?:test|run|use|operate)\b/.test(disclosure);
-      const namesTools = /\btools?\b/.test(disclosure);
-      const namesRealChannel = /\breal channel\b/.test(disclosure);
-      return saysNoTesting && namesUse && namesTools && namesRealChannel;
-    }),
+    noHandsOnDisclosure.test(reviewMethod.join(' ')),
     'review method should disclose no hands-on testing of tools on a real channel',
   );
 });
