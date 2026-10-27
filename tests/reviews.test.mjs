@@ -40,7 +40,15 @@ test('review copy avoids ownership claims and discloses its lack of hands-on tes
   const text = JSON.stringify([reviews, reviewMethod]);
   assert.ok(!/(owner|team behind|my own product)/i.test(text));
   assert.ok(
-    reviewMethod.some((line) => line.includes('I did not test these tools on a real channel.')),
+    reviewMethod.some((line) => {
+      const disclosure = line.toLowerCase();
+      const saysNoTesting = /\b(?:did not|didn't|never|not tested|no hands-on)\b/.test(disclosure);
+      const namesUse = /\b(?:test|run|use|operate)\b/.test(disclosure);
+      const namesTools = /\btools?\b/.test(disclosure);
+      const namesRealChannel = /\breal channel\b/.test(disclosure);
+      return saysNoTesting && namesUse && namesTools && namesRealChannel;
+    }),
+    'review method should disclose no hands-on testing of tools on a real channel',
   );
 });
 
