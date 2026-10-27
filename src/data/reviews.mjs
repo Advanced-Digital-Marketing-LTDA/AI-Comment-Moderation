@@ -19,6 +19,12 @@ const replientComparison = {
   date: 'updated 14 Oct 2026',
 };
 
+const unconfirmedBuyingDetails = {
+  priceFrom: 'Unconfirmed',
+  freeOption: 'Unconfirmed',
+  buying: 'Unconfirmed',
+};
+
 /**
  * `priceFrom`, `freeOption` and `buying` summarize `pricing` for the homepage comparison table.
  * `sources[].date` is the date shown on the source page, or "undated" when it shows none.
@@ -225,10 +231,8 @@ export const reviews = [
     approach:
       'Conversario describes community management across digital channels. I could not confirm the listed YouTube features from a first-party source.',
     pricing: 'Unconfirmed from current first-party information.',
+    ...unconfirmedBuyingDetails,
     bestFor: 'Not assessed for YouTube moderation.',
-    priceFrom: 'Unconfirmed',
-    freeOption: 'Unconfirmed',
-    buying: 'Unconfirmed',
     limits: ['YouTube compatibility, features, and pricing need confirmation from Conversario.'],
     sources: [replientComparison],
     caveat:
@@ -270,10 +274,8 @@ export const reviews = [
     approach:
       'Feature claims from an earlier competitor roundup are held until current first-party details can be checked.',
     pricing: 'Unconfirmed; current pricing could not be verified.',
+    ...unconfirmedBuyingDetails,
     bestFor: 'Not assessed.',
-    priceFrom: 'Unconfirmed',
-    freeOption: 'Unconfirmed',
-    buying: 'Unconfirmed',
     limits: [
       'I could not verify YouTube compatibility, features, or pricing from current first-party pages on 27 October 2026.',
     ],

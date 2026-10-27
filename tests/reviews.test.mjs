@@ -39,7 +39,9 @@ test('every cited source is an allowlisted HTTPS destination with a date', () =>
 test('review copy avoids ownership claims and discloses its lack of hands-on testing', () => {
   const text = JSON.stringify([reviews, reviewMethod]);
   assert.ok(!/(owner|team behind|my own product)/i.test(text));
-  assert.ok(reviewMethod.some((line) => /real channel/i.test(line) && /did not/i.test(line)));
+  assert.ok(
+    reviewMethod.some((line) => line.includes('I did not test these tools on a real channel.')),
+  );
 });
 
 test('YouTube support status and feature limits stay qualified where primary evidence is missing', () => {
