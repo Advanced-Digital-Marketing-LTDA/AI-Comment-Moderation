@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { reviews, reviewBySlug, reviewMethod } from '../src/data/reviews.mjs';
+import { questions } from '../src/content/page.mjs';
 import { allowedExternalUrl } from '../src/lib/site-config.mjs';
 
 test('review slugs are unique, URL-safe and resolvable', () => {
@@ -35,8 +36,56 @@ test('every cited source is an allowlisted HTTPS destination with a date', () =>
     }
 });
 
-test('review copy never states who owns the site and claims no hands-on testing', () => {
+test('review copy avoids ownership claims and discloses its lack of hands-on testing', () => {
   const text = JSON.stringify([reviews, reviewMethod]);
   assert.ok(!/(owner|team behind|my own product)/i.test(text));
-  assert.ok(reviewMethod.some((line) => line.includes('did not run any of these tools')));
+  assert.ok(reviewMethod.some((line) => /real channel/i.test(line) && /did not/i.test(line)));
+});
+
+test('YouTube support status and feature limits stay qualified where primary evidence is missing', () => {
+  for (const slug of ['conversario', 'commentmod']) {
+    const review = reviewBySlug(slug);
+    assert.match(review.youtube, /unconfirmed/i, slug);
+    assert.doesNotMatch(review.youtube, /^\s*yes\b/i, slug);
+  }
+
+  const bodyguard = reviewBySlug('bodyguard-ai');
+  assert.match(bodyguard.youtube, /organic YouTube Live posts/i);
+  assert.match(bodyguard.youtube, /live chat is not documented/i);
+  assert.match(bodyguard.limits.join(' '), /cannot be restored/i);
+});
+
+test('CommentShark and Spikerz descriptions expose their YouTube scan delays', () => {
+  const commentshark = reviewBySlug('commentshark');
+  const commentsharkText = [
+    commentshark.youtube,
+    commentshark.approach,
+    ...commentshark.limits,
+  ].join(' ');
+  assert.match(commentsharkText, /30 minutes/i);
+  assert.match(commentsharkText, /2 hours/i);
+  assert.match(commentsharkText, /after.*sync/i);
+  assert.match(
+    commentshark.limits.join(' '),
+    /paid plans.{0,80}30 minutes.{0,80}Free.{0,40}2 hours/i,
+  );
+
+  const spikerz = reviewBySlug('spikerz');
+  const spikerzText = [spikerz.tagline, spikerz.youtube, spikerz.approach, spikerz.caveat].join(
+    ' ',
+  );
+  assert.match(spikerzText, /1\.5 hours/i);
+  assert.match(spikerzText, /not confirm real-time YouTube moderation/i);
+  assert.match(spikerzText, /25\+ language support for YouTube/i);
+});
+
+test('live-chat FAQ keeps product scope and links to YouTube’s live-chat guidance', () => {
+  const question = questions.find(
+    (item) => item.question === 'Which platforms does Moderaty support?',
+  );
+  assert.ok(question);
+  assert.match(question.answer, /top-level YouTube comments/i);
+  assert.match(question.answer, /YouTube live chat/i);
+  assert.equal(question.relatedSource, 'https://support.google.com/youtube/answer/9826490?hl=en');
+  assert.equal(allowedExternalUrl(question.relatedSource), true);
 });

@@ -3,7 +3,7 @@ export const page = {
   description:
     'I review AI comment moderation tools. Choose a workflow, explore my fictional review examples, compare native controls and plan human review. Includes my YouTube-only Moderaty review.',
   heading: 'AI Comment Moderation',
-  reviewed: '6 October 2026',
+  reviewed: '27 October 2026',
 };
 
 export const questions = [
@@ -27,10 +27,12 @@ export const questions = [
   {
     question: 'Which platforms does Moderaty support?',
     answer:
-      'Moderaty documents top-level YouTube comments. Replies, YouTube live chat, Instagram, Facebook, TikTok, website comments and a general-purpose API are outside that documented scope.',
+      'Moderaty documents top-level YouTube comments. Replies, YouTube live chat, Instagram, Facebook, TikTok, website comments and a general-purpose API are outside that documented scope. YouTube provides separate tools for live-chat moderation.',
     source:
       'https://github.com/Bonobo791/Moderaty/blob/89ffd992497ad2d3cf879cde6daf42931e6cb656/PRODUCT.md',
     sourceLabel: 'Moderaty’s documented scope',
+    relatedSource: 'https://support.google.com/youtube/answer/9826490?hl=en',
+    relatedSourceLabel: 'YouTube’s live-chat moderation guide',
   },
   {
     question: 'Can I undo every moderation action?',

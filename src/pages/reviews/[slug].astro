@@ -8,8 +8,8 @@ const { review } = Astro.props;
 ---
 
 <BaseLayout
-  title={`${review.name} Review: YouTube Comment Moderation, Pricing and Limits`}
-  description={`My source-based review of ${review.name} for YouTube comment moderation: ${review.tagline} Checked ${reviewedOn}.`}
+  title={`${review.name} Review: Comment Moderation, YouTube Support and Limits`}
+  description={`My source-based review of ${review.name}: YouTube support status, pricing, moderation scope and limits. ${review.tagline} Checked ${reviewedOn}.`}
   path={`/reviews/${review.slug}/`}
 >
   <article class="section container">
@@ -26,7 +26,7 @@ const { review } = Astro.props;
     <h2>At a glance</h2>
     <ul>
       <li>
-        <strong>YouTube:</strong> {review.youtube}
+        <strong>YouTube support:</strong> {review.youtube}
       </li>
       <li>
         <strong>How it works:</strong> {review.approach}
