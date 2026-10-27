@@ -332,8 +332,12 @@ const quickPicks = [
         </p>
         <p class="small">
           Live chat uses a separate workflow.{' '}
-          <a href="https://support.google.com/youtube/answer/15535966?hl=en-uk">
-            Comment moderator guidance ↗
+          <a
+            href="https://support.google.com/youtube/answer/9826490?hl=en"
+            target="_blank"
+            rel="noopener"
+          >
+            YouTube live-chat moderation guide ↗
           </a>
         </p>
       </aside>
@@ -560,7 +564,16 @@ const quickPicks = [
             </summary>
             <div>
               <p>{item.answer}</p>
-              {item.source && <a href={item.source}>{item.sourceLabel} ↗</a>}
+              {item.source && (
+                <a href={item.source} target="_blank" rel="noopener">
+                  {item.sourceLabel} ↗
+                </a>
+              )}
+              {item.relatedSource && (
+                <a href={item.relatedSource} target="_blank" rel="noopener">
+                  {item.relatedSourceLabel} ↗
+                </a>
+              )}
             </div>
           </details>
         ))}

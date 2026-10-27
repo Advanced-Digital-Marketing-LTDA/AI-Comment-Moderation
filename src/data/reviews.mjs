@@ -1,9 +1,9 @@
-export const reviewedOn = '15 October 2026';
+export const reviewedOn = '27 October 2026';
 
 export const reviewMethod = [
-  'I read the vendor’s own pages where I could and recent write-ups by others. For Swat.io, Conversario, Bodyguard.ai and CommentMod my only sources are competitor or vendor-written roundups, and each of those pages says so. I did not run any of these tools on a real channel.',
-  'I only use sources published or updated in the last six months.',
-  'Accuracy figures are the reviewers’ own tests or vendor claims. I treat them as unverified.',
+  'I checked vendor pages where I could and recent write-ups by others. A competitor roundup alone does not confirm a tool’s YouTube support.',
+  'I prioritize sources published or updated in the last six months. I label undated or older sources and keep claims unconfirmed when first-party evidence is missing.',
+  'I did not test these tools on a real channel. Accuracy figures remain the reviewers’ tests or vendor claims.',
   'Prices change. Check the vendor’s page before you decide.',
 ];
 
@@ -13,16 +13,33 @@ const spikerzRoundup = {
   date: '23 Jun 2026, updated 13 Oct 2026',
 };
 
+const spikerzCommentCleanerGuide = {
+  label: 'Spikerz Help Center: How to use the comment cleaner',
+  url: 'https://help.spikerz.com/en/articles/11542409-how-to-use-the-comment-cleaner',
+  date: 'updated over 2 weeks ago (accessed 27 Oct 2026)',
+};
+
+const bodyguardHelpCenter = {
+  label: 'Bodyguard Help Center: How Bodyguard works on each social media',
+  url: 'https://help.bodyguard.ai/social-networks-integration-and-moderation',
+  date: 'undated (copyright © 2025)',
+};
+
 const replientComparison = {
   label: 'replient.ai moderation tool comparison',
   url: 'https://replient.ai/en/comparison/comment-moderation-tools',
   date: 'updated 14 Oct 2026',
 };
 
+const unconfirmedBuyingDetails = {
+  priceFrom: 'Unconfirmed',
+  freeOption: 'Unconfirmed',
+  buying: 'Unconfirmed',
+};
+
 /**
- * Each review is built only from the listed sources. `priceFrom`, `freeOption` and
- * `buying` summarize `pricing` for the homepage comparison table. `sources[].date` is the
- * date shown on the source page, or "undated" when it shows none.
+ * `priceFrom`, `freeOption` and `buying` summarize `pricing` for the homepage comparison table.
+ * `sources[].date` is the date shown on the source page, or "undated" when it shows none.
  */
 export const reviews = [
   {
@@ -61,10 +78,10 @@ export const reviews = [
   {
     slug: 'commentshark',
     name: 'CommentShark',
-    tagline: 'A YouTube-only moderator with spam, scam and hate detection and a free tier.',
-    youtube: 'Yes, YouTube only, long-form and Shorts',
+    tagline: 'A YouTube comment moderator with a free plan and scheduled checks.',
+    youtube: 'Yes, for video comments and Shorts; active live chat is unsupported.',
     approach:
-      'Detects spam, scams and hate with AI comment classification, scores sentiment, and can auto-delete or hold comments.',
+      'Detects spam, scams and hate with AI comment classification, scores sentiment, and can auto-delete or hold comments. Actions run after comments sync.',
     pricing:
       'Free (3 rules, 20 actions a month), Starter $19 (10 rules, 500 actions), Creator $49 (25 rules, 1,500 actions), Pro $139 (50 rules, 5,000 actions), and a custom plan on request. Seven-day refund.',
     bestFor: 'A solo creator who wants a low-cost start and can live with monthly action caps.',
@@ -73,7 +90,7 @@ export const reviews = [
     buying: 'Published plans',
     limits: [
       'Action caps run from 20 to 5,000 a month on the plans above.',
-      'Free channels are checked every 2 hours.',
+      'Checks are scheduled, not instant: CommentShark says paid plans sync every 30 minutes and Free every 2 hours. Automated actions wait until after sync, so comments can wait for the next check.',
       'One channel per account.',
       'No like, heart or pin, because of a YouTube API limit.',
     ],
@@ -118,18 +135,19 @@ export const reviews = [
   {
     slug: 'spikerz',
     name: 'Spikerz',
-    tagline: 'Real-time moderation with plain-language rules in 25+ languages.',
-    youtube: 'Yes, in real time through the API',
+    tagline: 'YouTube comment cleaning with Hide checks listed every 1.5 hours.',
+    youtube: 'Yes; the Help Center lists Hide scans every 1.5 hours.',
     approach:
-      'Reads intent, takes custom rules written in plain language, and covers 25+ languages.',
+      'Its Help Center lists a 1.5-hour scan interval for YouTube Hide. It does not confirm real-time YouTube moderation or 25+ language support for YouTube.',
     pricing: 'Custom. No public pricing.',
     bestFor: 'A team that wants to talk to sales and write rules in plain language.',
     priceFrom: 'Custom',
     freeOption: 'None stated',
     buying: 'Sales call',
     limits: ['No public pricing, so you cannot compare cost before a sales call.'],
-    sources: [spikerzRoundup],
-    caveat: 'This is Spikerz’s own blog, which also ranks its competitors.',
+    sources: [spikerzCommentCleanerGuide, spikerzRoundup],
+    caveat:
+      'Spikerz’s own roundup also ranks competitors; its real-time and language claims are not used here to describe YouTube support.',
   },
   {
     slug: 'respondology',
@@ -220,24 +238,25 @@ export const reviews = [
   {
     slug: 'conversario',
     name: 'Conversario',
-    tagline: 'Enterprise moderation with a sensitivity setting that changes by time of day.',
-    youtube: 'Yes',
-    approach: 'AI classification and auto-hide, adjustable by time of day, with an audit timeline.',
-    pricing: 'Not published. A 30-day free trial is available on request.',
-    bestFor: 'A large organization that wants to buy through sales.',
-    priceFrom: 'Not published',
-    freeOption: '30-day trial on request',
-    buying: 'Sales call',
-    limits: ['Enterprise only, with no self-serve plan.', 'No AI reply suggestions.'],
+    tagline: 'Community moderation; YouTube support is unconfirmed.',
+    youtube: 'Unconfirmed; the current overview does not name YouTube.',
+    approach:
+      'Conversario describes community management across digital channels. I could not confirm the listed YouTube features from a first-party source.',
+    pricing: 'Unconfirmed from current first-party information.',
+    ...unconfirmedBuyingDetails,
+    bestFor: 'Not assessed for YouTube moderation.',
+    limits: ['YouTube compatibility, features, and pricing need confirmation from Conversario.'],
     sources: [replientComparison],
     caveat:
-      'My only source is a competitor’s comparison page, so treat every detail as unconfirmed.',
+      'The comparison page is written by a competitor. Conversario’s current product overview does not confirm YouTube support or the listed feature claims.',
   },
   {
     slug: 'bodyguard-ai',
     name: 'Bodyguard.ai',
-    tagline: 'Contextual AI with human review, built for platform-scale volume.',
-    youtube: 'Yes',
+    tagline:
+      'Bodyguard lists top-level YouTube video and Shorts comments and comments on organic YouTube Live posts.',
+    youtube:
+      'Yes, for top-level video and Shorts comments and comments on organic YouTube Live posts; live chat is not documented.',
     approach:
       'Contextual AI that handles irony and slang, with hybrid AI and human review in 45+ languages.',
     pricing: 'Custom, by demo only.',
@@ -245,35 +264,37 @@ export const reviews = [
     priceFrom: 'Custom',
     freeOption: 'None stated',
     buying: 'Demo first',
-    limits: ['Built for scale, so it may be more than a single channel needs.'],
+    limits: [
+      'Bodyguard lists YouTube Lives from organic posts, but its help center does not identify this as live-chat support. It says comments from live sessions cannot be restored through the dashboard.',
+      'Built for scale, so it may be more than a single channel needs.',
+    ],
     sources: [
       {
         label: 'Alto roundup of comment moderation tools',
         url: 'https://meetalto.ai/blog/best-social-media-comment-moderation-tools',
         date: '27 Apr 2026, updated 5 Aug 2026',
       },
+      bodyguardHelpCenter,
     ],
-    caveat: 'My only source is a vendor-written roundup, so treat every detail as unconfirmed.',
+    caveat:
+      'The contextual AI and human-review description comes from a vendor-written roundup. The YouTube comment surfaces and action limits above come from Bodyguard’s help center.',
   },
   {
     slug: 'commentmod',
     name: 'CommentMod',
-    tagline: 'Comment analytics for YouTube first, with batch delete and report.',
-    youtube: 'Yes, analyzes comments and can delete or report them in bulk',
+    tagline: 'Current product details and YouTube support are unconfirmed.',
+    youtube: 'Unconfirmed; current first-party product information was unavailable.',
     approach:
-      'Labels comments by sentiment (positive, neutral or negative), reads intent and engagement patterns, and deletes or reports large batches of comments.',
-    pricing: 'Custom, based on usage, channels and features, with a free trial.',
-    bestFor: 'A creator who wants audience insight from comments and occasional bulk clean-up.',
-    priceFrom: 'Custom',
-    freeOption: 'Free trial',
-    buying: 'Custom quote',
+      'Feature claims from an earlier competitor roundup are held until current first-party details can be checked.',
+    pricing: 'Unconfirmed; current pricing could not be verified.',
+    ...unconfirmedBuyingDetails,
+    bestFor: 'Not assessed.',
     limits: [
-      'It is more of an insight tool than a moderator, with limited workflow features for teams.',
-      'No public prices, comment volumes or channel caps.',
+      'I could not verify YouTube compatibility, features, or pricing from current first-party pages on 27 October 2026.',
     ],
     sources: [spikerzRoundup],
     caveat:
-      'My only source is a competitor’s blog, which also ranks its rivals, so treat every detail as unconfirmed.',
+      'A competitor’s roundup is not enough to confirm the disputed claims. I am holding them pending current first-party evidence.',
   },
 ];
 
