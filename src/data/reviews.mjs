@@ -13,6 +13,18 @@ const spikerzRoundup = {
   date: '23 Jun 2026, updated 13 Oct 2026',
 };
 
+const spikerzCommentCleanerGuide = {
+  label: 'Spikerz Help Center: How to use the comment cleaner',
+  url: 'https://help.spikerz.com/en/articles/11542409-how-to-use-the-comment-cleaner',
+  date: 'updated over 2 weeks ago (accessed 27 Oct 2026)',
+};
+
+const bodyguardHelpCenter = {
+  label: 'Bodyguard Help Center: How Bodyguard works on each social media',
+  url: 'https://help.bodyguard.ai/social-networks-integration-and-moderation',
+  date: 'undated (copyright © 2025)',
+};
+
 const replientComparison = {
   label: 'replient.ai moderation tool comparison',
   url: 'https://replient.ai/en/comparison/comment-moderation-tools',
@@ -133,7 +145,7 @@ export const reviews = [
     freeOption: 'None stated',
     buying: 'Sales call',
     limits: ['No public pricing, so you cannot compare cost before a sales call.'],
-    sources: [spikerzRoundup],
+    sources: [spikerzCommentCleanerGuide, spikerzRoundup],
     caveat:
       'Spikerz’s own roundup also ranks competitors; its real-time and language claims are not used here to describe YouTube support.',
   },
@@ -262,6 +274,7 @@ export const reviews = [
         url: 'https://meetalto.ai/blog/best-social-media-comment-moderation-tools',
         date: '27 Apr 2026, updated 5 Aug 2026',
       },
+      bodyguardHelpCenter,
     ],
     caveat:
       'The contextual AI and human-review description comes from a vendor-written roundup. The YouTube comment surfaces and action limits above come from Bodyguard’s help center.',

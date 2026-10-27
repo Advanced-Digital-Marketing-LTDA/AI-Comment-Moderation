@@ -11,6 +11,8 @@ export const EXTERNAL_HOSTS = new Set([
   'www.drupal.org',
   'reviewnexa.com',
   'www.spikerz.com',
+  'help.spikerz.com',
+  'help.bodyguard.ai',
   'replient.ai',
   'respondology.com',
   'beyondcomments.io',
