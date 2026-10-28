@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
-import { allowedExternalUrl, siteConfig } from '../src/lib/site-config.mjs';
+import { allowedExternalUrl, canonical, siteConfig } from '../src/lib/site-config.mjs';
 import { scenarios } from '../src/data/scenarios.mjs';
 import { reviews } from '../src/data/reviews.mjs';
 import { JSDOM } from 'jsdom';
@@ -156,11 +156,41 @@ for (const review of hasReviews ? reviews : []) {
   assert.ok(sitemap.includes(`<loc>https://aicommentmoderation.com/reviews/${review.slug}/</loc>`));
   reviewDocuments.push([`reviews/${review.slug}`, `/reviews/${review.slug}/`]);
 }
+const reviewTitles = new Set();
+const reviewDescriptions = new Set();
 for (const [dir, path] of reviewDocuments) {
   const reviewHtml = await readFile(`dist/client/${dir}/index.html`, 'utf8');
   const reviewDom = new JSDOM(reviewHtml);
   const reviewDocument = reviewDom.window.document;
   assert.equal(reviewDocument.querySelectorAll('h1').length, 1, `${dir}: one h1`);
+  assert.equal(reviewDocument.documentElement.lang, 'en', `${dir}: language`);
+  const singleContent = (selector) => {
+    const nodes = reviewDocument.querySelectorAll(selector);
+    assert.equal(nodes.length, 1, `${dir}: ${selector} count`);
+    const value = nodes[0].getAttribute('content') ?? nodes[0].textContent;
+    assert.ok(value?.trim(), `${dir}: ${selector} must not be empty`);
+    return value;
+  };
+  const title = singleContent('title');
+  const description = singleContent('meta[name="description"]');
+  assert.equal(singleContent('meta[property="og:title"]'), title, `${dir}: social title`);
+  assert.equal(
+    singleContent('meta[property="og:description"]'),
+    description,
+    `${dir}: social description`,
+  );
+  assert.equal(singleContent('meta[property="og:url"]'), canonical(path), `${dir}: social URL`);
+  singleContent('meta[property="og:image:alt"]');
+  const image = new URL(singleContent('meta[property="og:image"]'));
+  assert.equal(image.origin, config.origin, `${dir}: social image origin`);
+  assert.ok(!image.search && !image.hash, `${dir}: social image URL`);
+  const imageBytes = await readFile(join('dist/client', image.pathname));
+  assert.equal(imageBytes.subarray(0, 8).toString('hex'), '89504e470d0a1a0a', `${dir}: PNG`);
+  assert.equal(imageBytes.readUInt32BE(16), 1200, `${dir}: social image width`);
+  assert.equal(imageBytes.readUInt32BE(20), 630, `${dir}: social image height`);
+  assert.equal(reviewDocument.querySelectorAll('link[rel="canonical"]').length, 1);
+  reviewTitles.add(title);
+  reviewDescriptions.add(description);
   assert.ok(
     reviewHtml.includes(`rel="canonical" href="https://aicommentmoderation.com${path}"`),
     `${dir}: canonical`,
@@ -174,6 +204,8 @@ for (const [dir, path] of reviewDocuments) {
   await checkDestinations(reviewDocument, `${dir}/index.html`);
   reviewDom.window.close();
 }
+assert.equal(reviewTitles.size, reviewDocuments.length, 'Review titles must be unique');
+assert.equal(reviewDescriptions.size, reviewDocuments.length, 'Review descriptions must be unique');
 const files = [];
 async function walk(dir) {
   for (const item of await readdir(dir, { withFileTypes: true })) {

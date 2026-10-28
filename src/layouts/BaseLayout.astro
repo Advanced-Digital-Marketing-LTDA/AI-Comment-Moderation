@@ -6,8 +6,17 @@ interface Props {
   description: string;
   error?: boolean;
   path?: string;
+  socialImage?: string;
+  socialImageAlt?: string;
 }
-const { title, description, error = false, path = '/' } = Astro.props;
+const {
+  title,
+  description,
+  error = false,
+  path = '/',
+  socialImage = '/social-card.png',
+  socialImageAlt = 'AI Comment Moderation: a practical guide to rules, AI and human review',
+} = Astro.props;
 const config = siteConfig(process.env);
 const siteUrl = canonical('/');
 const url = canonical(path);
@@ -49,13 +58,10 @@ const schema = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {!error && <meta property="og:url" content={url} />}
-    <meta property="og:image" content={`${config.origin}/social-card.png`} />
+    <meta property="og:image" content={`${config.origin}${socialImage}`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="AI Comment Moderation: a practical guide to rules, AI and human review"
-    />
+    <meta property="og:image:alt" content={socialImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     {!error && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
   </head>
