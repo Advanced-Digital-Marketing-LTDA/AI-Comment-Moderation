@@ -11,6 +11,8 @@ const { review } = Astro.props;
   title={`${review.name} Review: Comment Moderation, YouTube Support and Limits`}
   description={`My source-based review of ${review.name}: YouTube support status, pricing, moderation scope and limits. ${review.tagline} Checked ${reviewedOn}.`}
   path={`/reviews/${review.slug}/`}
+  socialImage="/review-social-card.png"
+  socialImageAlt="AI Comment Moderation tool reviews: source-based reviews, support and limits"
 >
   <article class="section container">
     <p class="eyebrow">
