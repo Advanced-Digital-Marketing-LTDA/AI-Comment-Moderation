@@ -49,6 +49,18 @@ const { review } = Astro.props;
     </ul>
     {review.caveat && <p class="small quiet">{review.caveat}</p>}
 
+    <h2>Sources</h2>
+    <ul>
+      {review.sources.map((source) => (
+        <li>
+          <a href={source.url} rel="noopener noreferrer">
+            {source.label}
+          </a>
+          , {source.date}
+        </li>
+      ))}
+    </ul>
+
     <p>
       <a class="text-link" href="/reviews/">
         Back to all tool reviews
