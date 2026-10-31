@@ -9,7 +9,9 @@ test('fictional explorer supports presets, mode changes, repeated clicks and res
     if (!request.url().startsWith('http://127.0.0.1:4531')) external.push(request.url());
   });
   await page.goto('/');
-  await expect(page.locator('h1')).toHaveText('AI Comment Moderation');
+  await expect(page.locator('h1')).toHaveText(
+    'AI comment moderation tools, reviewed for YouTube creators',
+  );
   await expect(page.locator('#decision-label')).toHaveText('Allow');
   await page.locator('#scenario-select').selectOption('harmless-blocked-word');
   await page.getByRole('radio', { name: /^Stricter review/ }).check();

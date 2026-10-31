@@ -1,8 +1,8 @@
 export const page = {
-  title: 'AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices',
+  title: 'Best AI Comment Moderation Tools for YouTube: Reviews and Prices',
   description:
-    'I review AI comment moderation tools. Choose a workflow, explore my fictional review examples, compare native controls and plan human review. Includes my YouTube-only Moderaty review.',
-  heading: 'AI Comment Moderation',
+    "I compared 10 AI comment moderation tools on YouTube support, price and limits, from vendor pages and dated write-ups. I haven't run them on a real channel.",
+  heading: 'AI comment moderation tools, reviewed for YouTube creators',
   reviewed: '27 October 2026',
 };
 
