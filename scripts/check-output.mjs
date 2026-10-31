@@ -46,9 +46,7 @@ for (const review of reviews)
     html.includes(`href="/reviews/${review.slug}/"`),
     `Homepage must link to the ${review.name} review`,
   );
-assert.ok(
-  html.includes('AI Comment Moderation Tool Reviews: Workflows, Examples and Review Choices'),
-);
+assert.ok(html.includes('Best AI Comment Moderation Tools for YouTube: Reviews and Prices'));
 assert.match(html, /rel="canonical" href="https:\/\/aicommentmoderation\.com\/"/);
 assert.equal(document.querySelectorAll('meta[name="robots"]').length, 1);
 assert.equal(
