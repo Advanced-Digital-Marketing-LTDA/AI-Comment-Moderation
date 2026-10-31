@@ -858,6 +858,9 @@ select {
   background: var(--deep);
   color: #f4f6ef;
 }
+.dark-section :focus-visible {
+  outline-color: #f4f6ef;
+}
 .tradeoff-layout {
   display: grid;
   grid-template-columns: 1fr 1.05fr;
@@ -1020,6 +1023,9 @@ select {
   font-size: 0.72rem;
   line-height: 1.6;
   margin-top: 8px;
+}
+.other-grid h3 a {
+  font-size: inherit;
 }
 .other-grid p.caution {
   font-size: 0.68rem;
