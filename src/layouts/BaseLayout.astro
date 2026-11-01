@@ -8,6 +8,8 @@ interface Props {
   path?: string;
   socialImage?: string;
   socialImageAlt?: string;
+  modified?: string;
+  breadcrumbs?: { name: string; path: string }[];
 }
 const {
   title,
@@ -16,6 +18,8 @@ const {
   path = '/',
   socialImage = '/social-card.png',
   socialImageAlt = 'AI Comment Moderation: a practical guide to rules, AI and human review',
+  modified,
+  breadcrumbs,
 } = Astro.props;
 const config = siteConfig(process.env);
 const siteUrl = canonical('/');
@@ -37,7 +41,22 @@ const schema = {
       url,
       inLanguage: 'en',
       isPartOf: { '@id': `${siteUrl}#website` },
+      ...(modified ? { dateModified: modified } : {}),
     },
+    ...(breadcrumbs
+      ? [
+          {
+            '@type': 'BreadcrumbList',
+            '@id': `${url}#breadcrumb`,
+            itemListElement: breadcrumbs.map((crumb, index) => ({
+              '@type': 'ListItem',
+              position: index + 1,
+              name: crumb.name,
+              item: canonical(crumb.path),
+            })),
+          },
+        ]
+      : []),
   ],
 };
 ---
