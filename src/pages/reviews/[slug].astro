@@ -1,10 +1,28 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { reviews, reviewedOn } from '../../data/reviews.mjs';
+import { reviewDetails, reviewedIso } from '../../data/review-details.mjs';
 export function getStaticPaths() {
-  return reviews.map((review) => ({ params: { slug: review.slug }, props: { review } }));
+  return reviews.map((review, index) => ({
+    params: { slug: review.slug },
+    props: {
+      review,
+      previous: reviews[(index + reviews.length - 1) % reviews.length],
+      next: reviews[(index + 1) % reviews.length],
+    },
+  }));
 }
-const { review } = Astro.props;
+const { review, previous, next } = Astro.props;
+const details = reviewDetails[review.slug];
+const alternatives = reviews.filter((other) => details.alternatives.includes(other.slug));
+const jumpLinks = [
+  ['verdict', 'Verdict'],
+  ['pricing', 'Pricing'],
+  ['what-it-does', 'What it does'],
+  ['limits', 'Where it stops'],
+  ['alternatives', 'Alternatives'],
+  ['sources', 'Sources'],
+];
 ---
 
 <BaseLayout
@@ -13,58 +31,159 @@ const { review } = Astro.props;
   path={`/reviews/${review.slug}/`}
   socialImage="/review-social-card.png"
   socialImageAlt="AI Comment Moderation tool reviews: source-based reviews, support and limits"
+  modified={reviewedIso}
+  breadcrumbs={[
+    { name: 'AI Comment Moderation', path: '/' },
+    { name: 'Tool reviews', path: '/reviews/' },
+    { name: `${review.name} review`, path: `/reviews/${review.slug}/` },
+  ]}
 >
-  <article class="section container">
-    <p class="eyebrow">
-      <a href="/reviews/">Tool reviews</a>
-    </p>
-    <h1>{review.name} review</h1>
+  <article class="section container review-page">
+    <nav class="review-crumbs" aria-label="Breadcrumb">
+      <a href="/">Home</a> / <a href="/reviews/">Tool reviews</a> /{' '}
+      <span aria-current="page">{review.name}</span>
+    </nav>
+    <p class="eyebrow">Tool review</p>
+    <h1>{review.name} review: pricing, YouTube support and limits</h1>
     <p class="hero-intro">{review.tagline}</p>
     <p class="small quiet">
-      Source-based review, checked {reviewedOn}. I did not run this tool on a real channel.
+      Source-based review, checked <time datetime={reviewedIso}>{reviewedOn}</time>. I did not run
+      this tool on a real channel.
     </p>
     {review.disclosure && <p class="note">{review.disclosure}</p>}
 
-    <h2>At a glance</h2>
-    <ul>
-      <li>
-        <strong>YouTube support:</strong> {review.youtube}
-      </li>
-      <li>
-        <strong>How it works:</strong> {review.approach}
-      </li>
-      <li>
-        <strong>Pricing:</strong> {review.pricing}
-      </li>
-      <li>
-        <strong>Best for:</strong> {review.bestFor}
-      </li>
-    </ul>
+    <dl class="review-facts">
+      <div>
+        <dt>YouTube support</dt>
+        <dd>{review.youtube}</dd>
+      </div>
+      <div>
+        <dt>Price from</dt>
+        <dd>{review.priceFrom}</dd>
+      </div>
+      <div>
+        <dt>Free option</dt>
+        <dd>{review.freeOption}</dd>
+      </div>
+      <div>
+        <dt>How to buy</dt>
+        <dd>{review.buying}</dd>
+      </div>
+      <div>
+        <dt>Best for</dt>
+        <dd>{review.bestFor}</dd>
+      </div>
+    </dl>
 
-    <h2>Where it stops</h2>
-    <ul>
-      {review.limits.map((item) => (
-        <li>{item}</li>
+    <nav class="review-jump" aria-label="On this page">
+      {jumpLinks.map(([id, label]) => (
+        <a href={`/reviews/${review.slug}/#${id}`}>{label}</a>
       ))}
-    </ul>
-    {review.caveat && <p class="small quiet">{review.caveat}</p>}
+    </nav>
 
-    <h2>Sources</h2>
-    <ul>
-      {review.sources.map((source) => (
-        <li>
-          <a href={source.url} rel="noopener noreferrer">
-            {source.label}
-          </a>
-          , {source.date}
-        </li>
-      ))}
-    </ul>
+    <section class="review-section" id="verdict">
+      <h2>Verdict</h2>
+      <p>{details.verdict}</p>
+      <p class="review-skip">
+        <strong>Skip it if:</strong>
+        {details.skipIf}
+      </p>
+    </section>
 
-    <p>
-      <a class="text-link" href="/reviews/">
-        Back to all tool reviews
+    <section class="review-section" id="pricing">
+      <h2>Pricing</h2>
+      <div class="review-table-wrap" role="region" aria-label={`${review.name} plans`} tabindex="0">
+        <table class="review-table">
+          <thead>
+            <tr>
+              <th scope="col">Plan</th>
+              <th scope="col">Price</th>
+              <th scope="col">What the sources say</th>
+            </tr>
+          </thead>
+          <tbody>
+            {details.plans.map((plan) => (
+              <tr>
+                <th scope="row">{plan.name}</th>
+                <td>{plan.price}</td>
+                <td>{plan.detail}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="small quiet">Prices change. Check the vendor’s page before you decide.</p>
+    </section>
+
+    <section class="review-section" id="what-it-does">
+      <h2>What it does</h2>
+      <p>{review.approach}</p>
+      <ul>
+        {details.features.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="review-section" id="limits">
+      <h2>Where it stops</h2>
+      <ul>
+        {review.limits.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      {review.caveat && <p class="small quiet">{review.caveat}</p>}
+      <h3>What it does not cover</h3>
+      <ul>
+        {details.notCovered.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="review-section" id="alternatives">
+      <h2>Alternatives to compare</h2>
+      <div class="review-alt-grid">
+        {alternatives.map((alt) => (
+          <article class="scenario-card">
+            <h3>
+              <a href={`/reviews/${alt.slug}/`}>{alt.name}</a>
+            </h3>
+            <p>{alt.tagline}</p>
+            <p class="small">
+              <strong>Price from:</strong> {alt.priceFrom}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="review-section" id="sources">
+      <h2>Sources</h2>
+      <ul>
+        {review.sources.map((source) => (
+          <li>
+            <a href={source.url} rel="noopener noreferrer">
+              {source.label}
+            </a>
+            , {source.date}
+          </li>
+        ))}
+      </ul>
+      <p class="small quiet">
+        I checked the sources above on {reviewedOn}. I have not run {review.name} on a real channel,
+        so the features on this page are what those sources claim.
+      </p>
+    </section>
+
+    <nav class="review-pager" aria-label="More reviews">
+      <a href={`/reviews/${previous.slug}/`}>
+        <span aria-hidden="true">←</span> Previous: {previous.name}
       </a>
-    </p>
+      <a href="/reviews/">All tool reviews</a>
+      <a href={`/reviews/${next.slug}/`}>
+        Next: {next.name} <span aria-hidden="true">→</span>
+      </a>
+    </nav>
   </article>
 </BaseLayout>
