@@ -5,7 +5,6 @@ import { readFile } from 'node:fs/promises';
 test('Coolify runs the locked Astro standalone Node server as nonroot', async () => {
   const docker = await readFile('Dockerfile', 'utf8');
   assert.match(docker, /FROM node:24\.19\.0-bookworm-slim@sha256:/);
-  assert.match(docker, /ARG SITE_RELEASE=false/);
   assert.match(docker, /npm ci/);
   assert.match(docker, /npm prune --omit=dev/);
   assert.match(docker, /COPY --from=build.*\/app\/dist/);

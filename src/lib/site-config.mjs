@@ -20,12 +20,8 @@ export const EXTERNAL_HOSTS = new Set([
   'meetalto.ai',
 ]);
 
-/** @param {{ SITE_URL?: string, SITE_RELEASE?: string }} env */
+/** @param {{ SITE_URL?: string }} env */
 export function siteConfig(env = {}) {
-  if (env.SITE_RELEASE !== undefined && !['true', 'false'].includes(env.SITE_RELEASE))
-    throw new Error('SITE_RELEASE must be true or false');
-  const release = env.SITE_RELEASE === 'true';
-  if (release && !env.SITE_URL) throw new Error('SITE_URL is required for a release');
   const candidate = env.SITE_URL ?? PRODUCTION_ORIGIN;
   let url;
   try {
@@ -43,7 +39,7 @@ export function siteConfig(env = {}) {
     url.password
   )
     throw new Error('Invalid site origin: use the exact approved HTTPS apex');
-  return { origin: PRODUCTION_ORIGIN, release };
+  return { origin: PRODUCTION_ORIGIN };
 }
 
 /** @param {string} path @param {string} origin */

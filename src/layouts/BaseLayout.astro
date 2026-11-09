@@ -70,7 +70,7 @@ const schema = {
     <meta name="theme-color" content="#f6f7f2" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content={config.release && !error ? 'index,follow' : 'noindex,follow'} />
+    <meta name="robots" content={error ? 'noindex,follow' : 'index,follow'} />
     {!error && <link rel="canonical" href={url} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta property="og:type" content="website" />

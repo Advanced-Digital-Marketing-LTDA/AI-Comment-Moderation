@@ -2,13 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { siteConfig, canonical, allowedExternalUrl } from '../src/lib/site-config.mjs';
 
-test('preview defaults are safe and release requires explicit intended origin', () => {
-  assert.deepEqual(siteConfig({}), { origin: 'https://aicommentmoderation.com', release: false });
-  assert.throws(() => siteConfig({ SITE_RELEASE: 'true' }), /SITE_URL/);
-  assert.deepEqual(
-    siteConfig({ SITE_URL: 'https://aicommentmoderation.com/', SITE_RELEASE: 'true' }),
-    { origin: 'https://aicommentmoderation.com', release: true },
-  );
+test('defaults use the intended origin and an explicit origin must match it', () => {
+  assert.deepEqual(siteConfig({}), { origin: 'https://aicommentmoderation.com' });
+  assert.deepEqual(siteConfig({ SITE_URL: 'https://aicommentmoderation.com/' }), {
+    origin: 'https://aicommentmoderation.com',
+  });
 });
 test('release origin rejects corrected-away, copied, preview and lookalike hosts', () => {
   for (const origin of [
@@ -30,7 +28,7 @@ test('release origin rejects corrected-away, copied, preview and lookalike hosts
     'https://aicommentmoderation.com/other',
     'not-a-url',
   ]) {
-    assert.throws(() => siteConfig({ SITE_URL: origin, SITE_RELEASE: 'true' }), /origin/);
+    assert.throws(() => siteConfig({ SITE_URL: origin }), /origin/);
   }
 });
 test('malformed origins receive a parsing diagnostic before valid-but-unapproved origin checks', () => {
@@ -42,14 +40,6 @@ test('malformed origins receive a parsing diagnostic before valid-but-unapproved
     name: 'Error',
     message: 'Invalid site origin: use the exact approved HTTPS apex',
   });
-});
-test('release flag accepts only explicit true or false', () => {
-  assert.deepEqual(siteConfig({ SITE_RELEASE: 'false' }), {
-    origin: 'https://aicommentmoderation.com',
-    release: false,
-  });
-  for (const value of ['', 'yes', 'TRUE', '1', ' true '])
-    assert.throws(() => siteConfig({ SITE_RELEASE: value }), /SITE_RELEASE/);
 });
 test('canonical defaults, directory slashes and file extensions preserve the approved origin', () => {
   assert.equal(canonical(), 'https://aicommentmoderation.com/');

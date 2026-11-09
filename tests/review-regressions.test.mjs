@@ -9,7 +9,7 @@ import { reviews } from '../src/data/reviews.mjs';
 
 test('Astro npm commands use a portable Node launcher instead of shell environment assignments', async () => {
   const { scripts } = JSON.parse(await readFile('package.json', 'utf8'));
-  for (const command of ['dev', 'check', 'build', 'build:release', 'preview']) {
+  for (const command of ['dev', 'check', 'build', 'preview']) {
     assert.ok(scripts[command].startsWith(`node scripts/astro.mjs ${command}`), command);
     assert.doesNotMatch(scripts[command], /(?:^|\s)[A-Z_]+=/, command);
   }
@@ -51,9 +51,9 @@ function guide(examples) {
     .map((scenario) => `<option value="${scenario.id}">${escape(scenario.label)}</option>`)
     .join('');
   const reviewLinks = reviews.map((review) => `<a href="/reviews/${review.slug}/"></a>`).join('');
-  return `<html><head><title>Best AI Comment Moderation Tools for YouTube: Reviews and Prices</title><link rel="canonical" href="https://aicommentmoderation.com/"><meta name="robots" content="noindex,follow"></head><body><h1>My reviews of AI comment moderation tools</h1><div class="hero-visual" role="group"></div><span id="checklist-count" hidden></span><button id="reset-checklist" hidden></button><p>Illustrative rules, not a live AI prediction; My reviews of AI comment moderation tools; top-level YouTube comments</p>${sections}${reviewLinks}<select>${options}</select><details class="all-examples"><div class="static-example-grid">${examples}</div></details></body></html>`;
+  return `<html><head><title>Best AI Comment Moderation Tools for YouTube: Reviews and Prices</title><link rel="canonical" href="https://aicommentmoderation.com/"><meta name="robots" content="index,follow"></head><body><h1>My reviews of AI comment moderation tools</h1><div class="hero-visual" role="group"></div><span id="checklist-count" hidden></span><button id="reset-checklist" hidden></button><p>Illustrative rules, not a live AI prediction; My reviews of AI comment moderation tools; top-level YouTube comments</p>${sections}${reviewLinks}<select>${options}</select><details class="all-examples"><div class="static-example-grid">${examples}</div></details></body></html>`;
 }
-async function checkOutput(html, release = false) {
+async function checkOutput(html) {
   const dir = await mkdtemp(join(tmpdir(), 'aicm-output-review-'));
   try {
     await mkdir(join(dir, 'dist/client'), { recursive: true });
@@ -73,7 +73,6 @@ async function checkOutput(html, release = false) {
       env: {
         ...process.env,
         SITE_URL: 'https://aicommentmoderation.com',
-        SITE_RELEASE: String(release),
       },
     });
   } finally {
@@ -168,8 +167,10 @@ test('built-output fragment coverage rejects broken root-relative targets', asyn
   assert.notEqual(run.status, 0, run.stdout);
   assert.match(run.stderr, /Missing link target/);
 });
-test('built-output release validation cannot mistake noindex for index', async () => {
-  const run = await checkOutput(guide(scenarios.map(example).join('')), true);
+test('built-output validation cannot mistake noindex for index', async () => {
+  const run = await checkOutput(
+    guide(scenarios.map(example).join('')).replace('"index,follow"', '"noindex,follow"'),
+  );
   assert.notEqual(run.status, 0, run.stdout);
   assert.match(run.stderr, /robots metadata/);
 });

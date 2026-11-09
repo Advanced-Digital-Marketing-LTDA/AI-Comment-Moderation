@@ -21,7 +21,6 @@
     "test:mutation:dry": "node scripts/run-mutation.mjs --dry-run",
     "test:fault": "node scripts/verify-fault.mjs",
     "build": "node scripts/astro.mjs build",
-    "build:release": "node scripts/astro.mjs build:release",
     "preview": "node scripts/astro.mjs preview --host 127.0.0.1",
     "test:e2e": "playwright test",
     "test:dom": "node scripts/package-preview.mjs && node --test tests/dom/*.test.mjs",

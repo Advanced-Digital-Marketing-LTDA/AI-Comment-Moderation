@@ -3,9 +3,8 @@ FROM node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733cee
 WORKDIR /app
 ENV ASTRO_TELEMETRY_DISABLED=1
 ARG SITE_URL=https://aicommentmoderation.com
-ARG SITE_RELEASE=false
 ARG SITE_COMMIT
-ENV SITE_URL=${SITE_URL} SITE_RELEASE=${SITE_RELEASE} SITE_COMMIT=${SITE_COMMIT}
+ENV SITE_URL=${SITE_URL} SITE_COMMIT=${SITE_COMMIT}
 COPY package.json package-lock.json ./
 RUN --mount=type=secret,id=build_ca \
     if [ -f /run/secrets/build_ca ]; then export NODE_EXTRA_CA_CERTS=/run/secrets/build_ca; fi; \

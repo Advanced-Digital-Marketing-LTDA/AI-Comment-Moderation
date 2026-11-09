@@ -28,10 +28,7 @@ test('property: arbitrary foreign hostname cannot become production origin', () 
         })
         .map((s) => s.join('')),
       (label) => {
-        assert.throws(
-          () => siteConfig({ SITE_URL: `https://${label}.invalid`, SITE_RELEASE: 'true' }),
-          /origin/,
-        );
+        assert.throws(() => siteConfig({ SITE_URL: `https://${label}.invalid` }), /origin/);
         assert.equal(allowedExternalUrl(`https://moderaty.com.${label}.invalid`), false);
       },
     ),
