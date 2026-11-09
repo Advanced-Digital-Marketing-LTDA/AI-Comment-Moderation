@@ -1,8 +1,8 @@
 import { createHash } from 'node:crypto';
 import { siteConfig } from './site-config.mjs';
 
-/** @typedef {{SITE_URL?: string, SITE_RELEASE?: string, SITE_COMMIT?: string}} BuildEnvironment */
-/** @typedef {{schemaVersion: number, commit: string|null, release: boolean, files: Record<string, string>}} BuildIdentity */
+/** @typedef {{SITE_URL?: string, SITE_COMMIT?: string}} BuildEnvironment */
+/** @typedef {{schemaVersion: number, commit: string|null, files: Record<string, string>}} BuildIdentity */
 
 /** @param {unknown} path */
 const validPath = (path) =>
@@ -15,12 +15,9 @@ const validPath = (path) =>
  * @param {BuildEnvironment} env
  */
 export function sourceCommit(env = {}) {
-  const { release } = siteConfig(env);
+  siteConfig(env);
   const commit = env.SITE_COMMIT;
-  if (commit === undefined || commit === '') {
-    if (release) throw new Error('SITE_COMMIT is required for a release artifact');
-    return null;
-  }
+  if (commit === undefined || commit === '') return null;
   if (typeof commit !== 'string' || commit.length !== 40 || !/^[a-f0-9]{40}$/.test(commit))
     throw new Error('SITE_COMMIT must be an exact lowercase 40-character source SHA');
   return commit;
@@ -33,7 +30,6 @@ export function sourceCommit(env = {}) {
  */
 export function buildMarker(entries, env = {}) {
   const commit = sourceCommit(env);
-  const { release } = siteConfig(env);
   const paths = new Set();
   const hashes = [...entries]
     .sort(([a], [b]) => a.localeCompare(b))
@@ -43,7 +39,7 @@ export function buildMarker(entries, env = {}) {
       paths.add(path);
       return [path, createHash('sha256').update(content).digest('hex')];
     });
-  return { schemaVersion: 1, commit, release, files: Object.fromEntries(hashes) };
+  return { schemaVersion: 1, commit, files: Object.fromEntries(hashes) };
 }
 
 /** Validate an untrusted served marker before using its identity or file hashes.
@@ -56,8 +52,6 @@ export function verifyBuildMarker(input, expectedCommit) {
   if (
     !marker ||
     marker.schemaVersion !== 1 ||
-    typeof marker.release !== 'boolean' ||
-    (marker.release && marker.commit === null) ||
     (marker.commit !== null &&
       (typeof marker.commit !== 'string' ||
         marker.commit.length !== 40 ||

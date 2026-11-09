@@ -24,7 +24,7 @@ Preserve established test contracts and thresholds. Validate review findings aga
 
 Fixtures are fictional. The standalone Node adapter is selected for hosting. No CMS, account, form, tracker, OAuth, model API, external inference, real channel access, database or paid service is selected. Keep source strings rendered as text and editorial destinations allowlisted. Do not copy another project's brands, domains, recipients, identifiers, credentials or private data. Do not claim independent product reviews, guaranteed accuracy or Moderaty support beyond its documented YouTube comment surface.
 
-Default builds are noindex previews. SITE_RELEASE=true prepares an indexable artifact and does not authorize publication. A public commit marker contains only schemaVersion 1, a validated source SHA or null for unidentified preview, the release boolean and relative public output paths with SHA-256 digests; it must not contain account/build-system credentials or repository paths. Analytics stays absent and all routes are ineligible. Adding collection or provider behavior requires its selected contract and authority.
+Builds emit indexable pages; only error pages are noindex. A build does not authorize publication. A public commit marker contains only schemaVersion 1, a validated source SHA or null for an unidentified build and relative public output paths with SHA-256 digests; it must not contain account/build-system credentials or repository paths. Analytics stays absent and all routes are ineligible. Adding collection or provider behavior requires its selected contract and authority.
 
 ## Handoff
 

@@ -51,8 +51,8 @@ assert.match(html, /rel="canonical" href="https:\/\/aicommentmoderation\.com\/"/
 assert.equal(document.querySelectorAll('meta[name="robots"]').length, 1);
 assert.equal(
   document.querySelector('meta[name="robots"]')?.getAttribute('content'),
-  config.release ? 'index,follow' : 'noindex,follow',
-  'Incorrect robots metadata for the selected artifact mode',
+  'index,follow',
+  'Incorrect robots metadata',
 );
 assert.ok(html.includes('Illustrative rules, not a live AI prediction'));
 assert.ok(!html.includes('the team behind Moderaty'));
@@ -195,7 +195,7 @@ for (const [dir, path] of reviewDocuments) {
   );
   assert.equal(
     reviewDocument.querySelector('meta[name="robots"]')?.getAttribute('content'),
-    config.release ? 'index,follow' : 'noindex,follow',
+    'index,follow',
     `${dir}: robots`,
   );
   assert.ok(!reviewHtml.includes('the team behind Moderaty'), `${dir}: owner wording`);

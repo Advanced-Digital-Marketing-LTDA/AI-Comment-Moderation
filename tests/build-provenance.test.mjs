@@ -29,7 +29,6 @@ async function generated(env, inspect = () => {}, prepare = async () => {}) {
       env: {
         ...process.env,
         SITE_URL: 'https://aicommentmoderation.com',
-        SITE_RELEASE: 'false',
         SITE_COMMIT: '',
         ...env,
       },
@@ -51,7 +50,6 @@ test('hosting generates a safe source marker and actual public artifact hashes',
       const marker = JSON.parse(text);
       assert.equal(marker.schemaVersion, 1);
       assert.equal(marker.commit, commit);
-      assert.equal(marker.release, false);
       assert.equal(
         marker.files['_astro/test.js'],
         '2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824',
@@ -63,7 +61,7 @@ test('hosting generates a safe source marker and actual public artifact hashes',
       assert.equal('build.json' in marker.files, false);
       assert.equal('healthz.txt' in marker.files, false);
       assert.equal(text.includes('do-not-expose-this'), false);
-      assert.deepEqual(Object.keys(marker).sort(), ['commit', 'files', 'release', 'schemaVersion']);
+      assert.deepEqual(Object.keys(marker).sort(), ['commit', 'files', 'schemaVersion']);
     },
   );
 });
@@ -74,12 +72,8 @@ test('preview markers explicitly record an absent source identity', async () => 
     assert.equal(JSON.parse(await readFile(join(dir, 'dist/build.json'), 'utf8')).commit, null);
   });
 });
-test('release builds require source identity and reject malformed marker configuration', async () => {
-  for (const env of [
-    { SITE_RELEASE: 'true' },
-    { SITE_COMMIT: 'not-a-commit' },
-    { SITE_COMMIT: `${commit}\n` },
-  ]) {
+test('builds reject malformed marker configuration', async () => {
+  for (const env of [{ SITE_COMMIT: 'not-a-commit' }, { SITE_COMMIT: `${commit}\n` }]) {
     const run = await generated(env);
     assert.notEqual(run.status, 0, run.stdout);
     assert.match(run.stderr, /SITE_COMMIT/);
@@ -96,10 +90,6 @@ test('source-marker configuration rejects malformed SHAs and does not mutate sup
   assert.equal(sourceCommit({ SITE_COMMIT: '' }), null);
   assert.throws(() => sourceCommit({ SITE_COMMIT: commit.toUpperCase() }), /SITE_COMMIT/);
   assert.throws(() => sourceCommit({ SITE_COMMIT: 'a'.repeat(39) }), /SITE_COMMIT/);
-  assert.throws(
-    () => sourceCommit({ SITE_URL: 'https://aicommentmoderation.com', SITE_RELEASE: 'true' }),
-    /SITE_COMMIT/,
-  );
   assert.throws(
     () => buildMarker([['../private', Buffer.from('hello')]], {}),
     /public artifact path/,
@@ -149,13 +139,6 @@ test('served marker verification rejects stale source identity and corrupted pub
     () => verifyBuildMarker({ ...marker, files: { 'index.html': 'not-a-hash' } }),
     /build marker/,
   );
-});
-test('served release markers require source identity even without an expected SHA', async () => {
-  const { buildMarker, verifyBuildMarker } = await import('../src/lib/build-provenance.mjs');
-  const preview = buildMarker([['index.html', Buffer.from('hello')]], {});
-  assert.doesNotThrow(() => verifyBuildMarker(preview));
-  assert.throws(() => verifyBuildMarker({ ...preview, release: true }), /build marker/);
-  assert.doesNotThrow(() => verifyBuildMarker({ ...preview, release: true, commit }));
 });
 test('the isolated host smoke checks the served marker rather than relying on health alone', async () => {
   const smoke = await readFile('scripts/smoke-host.mjs', 'utf8');

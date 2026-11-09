@@ -4,17 +4,16 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export function commandPlan(command, args = [], env = process.env) {
-  if (!['dev', 'check', 'build', 'build:release', 'preview'].includes(command))
+  if (!['dev', 'check', 'build', 'preview'].includes(command))
     throw new Error(`Unsupported Astro command: ${command}`);
-  const release = command === 'build:release';
-  const action = release ? 'build' : command;
+  const action = command;
   const bin = fileURLToPath(new URL('./bin/astro.mjs', import.meta.resolve('astro/package.json')));
   const steps = [[process.execPath, bin, action, ...args]];
   if (action === 'build')
     for (const script of ['generate-hosting.mjs', 'check-output.mjs'])
       steps.push([process.execPath, fileURLToPath(new URL(script, import.meta.url))]);
   return {
-    env: { ...env, ASTRO_TELEMETRY_DISABLED: '1', ...(release ? { SITE_RELEASE: 'true' } : {}) },
+    env: { ...env, ASTRO_TELEMETRY_DISABLED: '1' },
     steps,
   };
 }

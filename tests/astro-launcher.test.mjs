@@ -16,28 +16,23 @@ test('portable Astro plans preserve literal arguments and disable tooling teleme
   const { commandPlan } = await launcher();
   const args = ['--host', '127.0.0.1', '--ignore-lock', 'space ; $(literal) ü'];
   const plan = commandPlan('preview', args, {
-    SITE_RELEASE: 'false',
     ASTRO_TELEMETRY_DISABLED: '0',
   });
   assert.equal(plan.env.ASTRO_TELEMETRY_DISABLED, '1');
-  assert.equal(plan.env.SITE_RELEASE, 'false');
   assert.equal(plan.steps[0][0], process.execPath);
   assert.match(plan.steps[0][1], /bin[/\\]astro\.mjs$/);
   assert.deepEqual(plan.steps[0].slice(2), ['preview', ...args]);
   assert.throws(() => commandPlan('anything'), /Unsupported Astro command/);
 });
-test('release mode reaches every build stage while ordinary builds retain Docker build args', async () => {
+test('builds run every build stage and retain Docker build args', async () => {
   const { commandPlan } = await launcher();
-  const env = { SITE_URL: 'https://aicommentmoderation.com', SITE_RELEASE: 'false' };
-  const release = commandPlan('build:release', [], env);
-  assert.equal(env.SITE_RELEASE, 'false');
-  assert.equal(release.env.SITE_RELEASE, 'true');
-  assert.equal(release.env.SITE_URL, env.SITE_URL);
-  assert.equal(release.steps.length, 3);
-  assert.equal(release.steps[0][2], 'build');
-  assert.match(release.steps[1][1], /generate-hosting\.mjs$/);
-  assert.match(release.steps[2][1], /check-output\.mjs$/);
-  assert.equal(commandPlan('build', [], { SITE_RELEASE: 'true' }).env.SITE_RELEASE, 'true');
+  const env = { SITE_URL: 'https://aicommentmoderation.com' };
+  const build = commandPlan('build', [], env);
+  assert.equal(build.env.SITE_URL, env.SITE_URL);
+  assert.equal(build.steps.length, 3);
+  assert.equal(build.steps[0][2], 'build');
+  assert.match(build.steps[1][1], /generate-hosting\.mjs$/);
+  assert.match(build.steps[2][1], /check-output\.mjs$/);
 });
 test('portable runner executes real children in order and stops on the first failure', async () => {
   const { runCommands } = await launcher();
@@ -48,13 +43,13 @@ test('portable runner executes real children in order and stops on the first fai
       process.execPath,
       '--input-type=module',
       '-e',
-      `import { appendFileSync } from 'node:fs'; appendFileSync(process.env.STAGE_LOG, '${message}:'+process.env.ASTRO_TELEMETRY_DISABLED+':'+process.env.SITE_RELEASE+'\\n'); process.exit(${status});`,
+      `import { appendFileSync } from 'node:fs'; appendFileSync(process.env.STAGE_LOG, '${message}:'+process.env.ASTRO_TELEMETRY_DISABLED+':'+process.env.STAGE_MARK+'\\n'); process.exit(${status});`,
     ];
     const env = {
       ...process.env,
       STAGE_LOG: log,
       ASTRO_TELEMETRY_DISABLED: '1',
-      SITE_RELEASE: 'true',
+      STAGE_MARK: 'true',
     };
     assert.equal(
       await runCommands([child('first', 0), child('second', 7), child('forbidden', 0)], env),

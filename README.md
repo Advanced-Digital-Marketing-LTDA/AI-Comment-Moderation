@@ -72,38 +72,37 @@ npm run test:e2e
 
 CHROMIUM_PATH is an optional executable override. The default uses Playwright's installed Chromium. Linux environments that lack browser libraries can use `npx playwright install --with-deps chromium` when system-package installation is permitted. [Development details](docs/development.md) cover property replay and the other test commands.
 
-## Preview and release builds
+## Builds
 
-`npm run build` emits noindex HTML; robots.txt allows crawling and lists the sitemap. It still uses the intended canonical origin, https://aicommentmoderation.com/. SITE_RELEASE defaults to false. The selected public build settings are documented in [.env.example](.env.example); pass them through the process environment or Coolify build variables.
+`npm run build` emits indexable HTML for the guide and review pages (the 404 page stays noindex); robots.txt allows crawling and lists the sitemap. It uses the intended canonical origin, https://aicommentmoderation.com/. The selected public build settings are documented in [.env.example](.env.example); pass them through the process environment or Coolify build variables.
 
-A release build requires the exact approved HTTPS origin and a lowercase 40-character source commit SHA. Start from a reviewed, clean checkout at the approved commit. This POSIX-shell command prepares indexable files and does not publish them:
+Start from a reviewed, clean checkout at the approved commit. This POSIX-shell command builds the files and does not publish them:
 
 ```sh
 SITE_URL=https://aicommentmoderation.com \
-  SITE_COMMIT="$(git rev-parse HEAD)" npm run build:release
+  SITE_COMMIT="$(git rev-parse HEAD)" npm run build
 ```
 
-The release script supplies SITE_RELEASE=true to every build stage. A regular build can also prepare a release when all three settings are supplied explicitly. SITE_URL accepts only the intended apex origin, with an optional trailing slash; www, explicit ports, paths, queries and fragments are rejected. A missing or invalid release SHA fails the build.
+SITE_URL accepts only the intended apex origin, with an optional trailing slash; www, explicit ports, paths, queries and fragments are rejected. SITE_COMMIT is optional; an invalid SHA fails the build.
 
-Build generation writes `dist/build.json`; the runtime `/build.json` route serves it with the source SHA, release mode and SHA-256 digests of public output files. Unidentified previews use commit:null. The runtime route serves this marker with noindex/no-store. SITE_COMMIT is an identity assertion: the operator must compare it with the actual selected source and served artifact. [Release runbook](docs/release-runbook.md).
+Build generation writes `dist/build.json`; the runtime `/build.json` route serves it with the source SHA and SHA-256 digests of public output files. A build without SITE_COMMIT uses commit:null. The runtime route serves this marker with noindex/no-store. SITE_COMMIT is an identity assertion: the operator must compare it with the actual selected source and served artifact. [Release runbook](docs/release-runbook.md).
 
 ## Launch on Coolify
 
 Use the repository's Dockerfile build pack. The image installs locked dependencies, runs source checks and builds Astro, then copies the built server, public files and production dependencies into Node. The runtime runs `node ./dist/server/entry.mjs` with `HOST=0.0.0.0` and `PORT=8080`. No secrets, database or persistent volume are needed. Configure these values for an authorized preview or release:
 
-| Coolify setting                      | Value                                                           |
-| ------------------------------------ | --------------------------------------------------------------- |
-| Repository                           | https://github.com/Bonobo791/AI-Comment-Moderation              |
-| Source                               | The reviewed branch/commit selected for this deployment         |
-| Build pack / build strategy          | Dockerfile                                                      |
-| Base Directory                       | /                                                               |
-| Dockerfile Location                  | /Dockerfile                                                     |
-| Ports Exposes                        | 8080                                                            |
-| Build arguments                      | Managed manually in Dockerfile                                  |
-| SITE_URL, as a build variable        | https://aicommentmoderation.com                                 |
-| SITE_RELEASE, as a build variable    | false for preview; true for an approved public release          |
-| SITE_COMMIT, as a build variable     | Full lowercase SHA of the selected source; required for release |
-| Persistent storage / runtime secrets | None required                                                   |
+| Coolify setting                      | Value                                                   |
+| ------------------------------------ | ------------------------------------------------------- |
+| Repository                           | https://github.com/Bonobo791/AI-Comment-Moderation      |
+| Source                               | The reviewed branch/commit selected for this deployment |
+| Build pack / build strategy          | Dockerfile                                              |
+| Base Directory                       | /                                                       |
+| Dockerfile Location                  | /Dockerfile                                             |
+| Ports Exposes                        | 8080                                                    |
+| Build arguments                      | Managed manually in Dockerfile                          |
+| SITE_URL, as a build variable        | https://aicommentmoderation.com                         |
+| SITE_COMMIT, as a build variable     | Full lowercase SHA of the selected source; optional     |
+| Persistent storage / runtime secrets | None required                                           |
 
 Update SITE_COMMIT when selecting a new release commit. The image's HEALTHCHECK requests /healthz on internal port 8080 and expects ok. Coolify uses that image-owned check for a non-Compose Dockerfile application. It proves Node-server availability; artifact and UI checks are separate. The site requires an apex-root deployment and does not support a path prefix.
 
