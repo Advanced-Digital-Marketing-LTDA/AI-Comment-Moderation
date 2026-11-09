@@ -23,8 +23,9 @@ const unconfirmedPlans = (detail) => [{ name: 'Unconfirmed', price: 'Not confirm
 export const reviewDetails = {
   moderaty: {
     verdict:
-      'Moderaty suits a small YouTube channel that wants clear rules and a review queue before AI makes any call. Rules run first, uncertain comments go to a human queue, and self-hosting is free if you bring an OpenAI key. It covers top-level comments only, so skip it if you need replies, live chat or other platforms.',
-    skipIf: 'You need reply threads, live chat, automated replies or platforms beyond YouTube.',
+      'Moderaty suits a small YouTube channel that wants clear rules and a review queue before AI makes any call. Rules run first, uncertain comments go to a human queue, and self-hosting is free if you bring an OpenAI key. It covers comments and replies, and live comment moderation is coming. Skip it if you need other platforms.',
+    skipIf:
+      'You need live comment moderation today, automated replies or platforms beyond YouTube.',
     plans: [
       {
         name: 'Self-hosted',
@@ -55,10 +56,9 @@ export const reviewDetails = {
       'Hosted plans connect with one-click YouTube sign-in, which you can revoke in Google account settings.',
     ],
     notCovered: [
-      'Reply threads.',
-      'Live chat.',
+      'Live comment moderation, which is coming.',
       'YouTube’s own held-for-review and spam queues.',
-      'Replies or any engagement.',
+      'Posting replies or any engagement.',
     ],
     alternatives: ['commentshark', 'replient'],
   },
