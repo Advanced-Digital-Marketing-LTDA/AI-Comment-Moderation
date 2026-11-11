@@ -46,7 +46,7 @@ export const reviews = [
     slug: 'moderaty',
     name: 'Moderaty',
     tagline: 'Rules first, then AI scoring and a human review queue, for YouTube comments.',
-    youtube: 'Yes, top-level comments only',
+    youtube: 'Yes, comments and replies; live comment moderation is coming',
     approach:
       'Creator rules run first, then AI scoring, then a human review queue. It keeps an audit log and has an optional feedback digest that posts no replies.',
     pricing:
@@ -56,7 +56,7 @@ export const reviews = [
     freeOption: 'Yes, self-hosted is free',
     buying: 'Published plans',
     limits: [
-      'No replies, live chat or other platforms.',
+      'No live comment moderation yet and no other platforms.',
       'Classification credits do not roll over.',
       'Deleted comments cannot be restored through Moderaty.',
     ],
